@@ -3,11 +3,18 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import "bootstrap/dist/css/bootstrap.min.css"
+import { Provider } from 'react-redux';
+import store from './redux/store'
+
+export const preloadedState =  window.onload
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <Provider store={store} serverState={preloadedState}>
     <App />
+    </Provider>
   </React.StrictMode>
 );
 
