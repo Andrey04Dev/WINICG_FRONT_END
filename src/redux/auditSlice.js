@@ -30,6 +30,7 @@ export const AddAudit = createAsyncThunk(
     async(data, thunkAPI)=>{
         try {
             const res =  await AuditService.AddAudit(data)
+            console.log("Lo que se obtiene del creayasyntunk en add:", res)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)

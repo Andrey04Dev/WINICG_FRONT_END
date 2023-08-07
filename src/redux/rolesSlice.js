@@ -30,6 +30,7 @@ export const AddRoles = createAsyncThunk(
     async(data, thunkAPI)=>{
         try {
             const res =  await RolesService.AddRoles(data)
+            console.log("Lo que se obtiene el creatasync thunk roles", res)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -100,7 +101,7 @@ const RolesSlice = createSlice({
             state.message = "No se pudo obtener la información."
         })
         .addCase(AddRoles.fulfilled,(state, {payload}) => {
-            console.log("Entro al createslice",payload );
+            console.log("Entro al createslice de roles",payload );
             state.success = true
             state.message =  "El role se ha agregado correctamente"
         })

@@ -1,14 +1,24 @@
-import React, { Component } from 'react';
-import './assets/Fontawesome/FontAwesome'
-import FormRole from './components/Forms/FormRole';
-
+import React from "react";
+import "./assets/Fontawesome/FontAwesome";
+import "./components/sass/index.scss";
+import FormCertificationAdd from "./components/Forms/Certification/FormCertificationAdd";
+import FormCompanyPositionAdd from "./components/Forms/CompanyPosition/FormCompanyPositionAdd";
+import FormFlagAdd from "./components/Forms/Flags/FormFlagAdd";
+import FormAuditAdd from "./components/Forms/Audit/FormAuditAdd";
+import FormRolesAdd from "./components/Forms/Roles/FormRolesAdd";
+import GetUser from "./components/Forms/User/GetUser";
+import GetRoles from "./components/Forms/Roles/GetRoles";
+import Navbar from "./components/common/Navbar";
+import RoutesWINICG from "./components/Routes/RoutesWINICG";
 const App = () => {
   return (
-    <div><FormRole/></div>
-  )
-}
+    <div>
+      <RoutesWINICG/>
+    </div>
+  );
+};
 
-export default App
+export default App;
 
 // export default class App extends Component {
 //     static displayName = App.name;

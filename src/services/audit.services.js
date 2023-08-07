@@ -2,8 +2,8 @@ import {http} from './http-content'
 
 const GetAllAudit = async () => {
     try {
-      const res = await http.get("/Audit");
-      return res;
+      const res = await http.get("Audit");
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -11,8 +11,8 @@ const GetAllAudit = async () => {
   
   const GetAuditById = async (id) => {
     try {
-      const res = await http.get("/Audit", id);
-      return res;
+      const res = await http.get("Audit", id);
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -20,8 +20,10 @@ const GetAllAudit = async () => {
   
   const AddAudit = async (data) => {
     try {
-      const res = await http.get("/Audit", data);
-      return res;
+      console.log("Antes de services de aduit", data)
+      const res = await http.get("Audit", data);
+      console.log("Despues de services de aduit", res.data)
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -29,8 +31,8 @@ const GetAllAudit = async () => {
   
   const UpdateAudit = async (data, id) => {
     try {
-      const res = await http.get(`/Audit/${id}`, data);
-      return res;
+      const res = await http.get(`Audit/${id}`, data);
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -38,8 +40,8 @@ const GetAllAudit = async () => {
   
   const DeleteAudit = async (id) => {
     try {
-      const res = await http.get(`/Audit/${id}`);
-      return res;
+      const res = await http.get(`Audit/${id}`);
+      return res.data;
     } catch (error) {
       return error;
     }

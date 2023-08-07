@@ -1,16 +1,19 @@
 import React from 'react'
-import Form from '../FormFields/Form'
-import Input from '../FormFields/Input'
-import Select from '../FormFields/Select'
+import Form from '../../FormFields/Form'
+import Input from '../../FormFields/Input'
+import Select from '../../FormFields/Select'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { ValidationRoles } from '../Validation/ValidationForms'
+import { ValidationAudit } from '../../Validation/ValidationForms'
+import { useDispatch } from 'react-redux'
+import { AddAudit } from '../../../redux/auditSlice'
 
-const FormRole = () => {
-    const {register, handleSubmit, formState:{errors} } =  useForm({resolver:yupResolver(ValidationRoles)})
+const FormAuditAdd = () => {
+    const {register, handleSubmit, formState:{errors} } =  useForm({resolver:yupResolver(ValidationAudit)})
+    const dispatch = useDispatch()
 
-
-    const handleAddRole = (data) =>{
+    const handleAddAudit = (data) =>{
+      dispatch(AddAudit(data))
         console.log(data)
     }
   return (
@@ -19,7 +22,7 @@ const FormRole = () => {
     register={register}
     handleSubmit={handleSubmit}
     title={"Agregar rol"}
-    onSubmit={handleAddRole}
+    onSubmit={handleAddAudit}
     >
         <Input error={errors.auditName?.message} type={"text"} name={"auditName"}label={"Nombre del auditor"} placeholder={"Nombre del auditor"}/>
         <Input error={errors.auditDate?.message} type={"date"} name={"auditDate"}label={"Fecha de la auditoria"} placeholder={"Fecha de la auditoria"}/>
@@ -34,4 +37,4 @@ const FormRole = () => {
   )
 }
 
-export default FormRole
+export default FormAuditAdd

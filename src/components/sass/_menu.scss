@@ -1,0 +1,17 @@
+.navbar {
+    width: 28% !important;
+    height: 100vh !important;
+  }
+.navbar,
+.navbar-collapse {
+  flex-direction: column !important;
+}
+.navbar-expand-lg .navbar-nav {
+  flex-direction: column !important;
+}
+.navbar .container-fluid, 
+.navbar-expand-lg .navbar-collapse, 
+.navbar-expand-lg .navbar-nav{
+  flex-direction: column !important;
+  align-items: flex-start !important;
+}

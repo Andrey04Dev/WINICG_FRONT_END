@@ -1,11 +1,11 @@
 import React from "react";
 
-const Input = ({ type, register, error, name, placeholder, rest, label }) => {
+const Input = ({ type, register, error, name, placeholder, rest, label, className }) => {
   return (
     <div className="form-floating mb-3">
       <input
         type={type}
-        className={`form-control ${error ? "is-invalid" : ""}`}
+        className={className ? className:`form-control ${error ? "is-invalid" : ""}`}
         placeholder={placeholder}
         aria-invalid ={ error ? "true": "false"}
         {...register(name)}

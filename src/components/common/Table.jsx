@@ -1,7 +1,7 @@
 
 import React, { Fragment } from 'react'
 
-const Table = ({arrayHeader, data, handleDeleteRoom,deleteRoute,updateRoute,addRoute}) => {
+const Table = ({arrayHeader, data,title,  handleDeleteRoom,deleteRoute,updateRoute,addRoute}) => {
 
     const ConvertDate= (date) => {
         const GetDate =  new Date(date)
@@ -9,20 +9,20 @@ const Table = ({arrayHeader, data, handleDeleteRoom,deleteRoute,updateRoute,addR
     }
   return (
     <table className="table table-bordered table-hover table-responsive table-striped">
-    <caption className="caption-top text-center">List of room</caption>
-    <thead className='table-info'>
+    <caption className="caption-top text-center">{title}</caption>
+    <thead className='table-info text-center'>
       <tr>
         {arrayHeader?.map((header, index) => (
           <th key={index}>
             {
-             header === "idroom"
-               ? "Room Code"
-               : header === "nameroom"
-               ? "Room"
-               :header === "idreservation"
-               ? "Reservation Code"
-               :header === "startreserve"
-               ? "Check-in"
+             header === "idrole"
+               ? "Código"
+               : header === "Role"
+               ? "Rol"
+               :header === "createdate"
+               ? "Fecha de creación"
+               :header === "updatedate"
+               ? "Fecha de actualización"
                :header === "endreserve"
                ? "Check-out"
                :header === "bookperson"
@@ -36,19 +36,18 @@ const Table = ({arrayHeader, data, handleDeleteRoom,deleteRoute,updateRoute,addR
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody className='text-center'>
       {data && Object.values(data)?.map((data, index) => (
         <tr key={index}>
           {arrayHeader && Object.values(arrayHeader).map((header, index) => {
              return( 
                <Fragment key={index}>
                  {
-                   header === "idroom"?
-                   (<><td key={index}>{data.idroom }</td>
-                     <td>{data.nameroom}</td>
-                     <td>{data.capacity}</td>
-                     <td>{data.price}</td>
-                     <td>{data.information}</td>
+                   header === "idrole"?
+                   (<><td key={index}>{data.idrole }</td>
+                     <td>{data.role}</td>
+                     <td>{ConvertDate(data.createdate)}</td>
+                     <td>{data.updatedate === null ? "": ConvertDate(data.updatedate)}</td>
                    </>):
                    header === "idreservation"?
                    (<><td key={index}>{data.idreservation }</td>

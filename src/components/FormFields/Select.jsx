@@ -12,8 +12,8 @@ const Select = ({register, options, name, label,error,...rest}) => {
         {/* <option value={""}>Select a options</option> */}
         {options &&
           Object.values(options).map((value, index) => (
-            <option key={index} value={value.idroom || value.idcategory}>
-              {value.nameroom || value.category}
+            <option key={index} value={value}>
+              {value}
             </option>
           ))}
       </select>
