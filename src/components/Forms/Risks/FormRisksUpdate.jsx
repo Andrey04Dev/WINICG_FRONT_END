@@ -1,9 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import React from 'react'
-import { Form, useForm } from 'react-hook-form'
+import {useForm } from 'react-hook-form'
 import { ValidationRisk } from '../../Validation/ValidationForms'
 import Select from '../../FormFields/Select'
 import Input from '../../FormFields/Input'
+import Form from '../../FormFields/Form'
 
 const FormRisksUpdate = () => {
     const {register, handleSubmit, formState:{errors} } =  useForm({resolver:yupResolver(ValidationRisk)})
@@ -12,7 +13,7 @@ const FormRisksUpdate = () => {
         console.log(data)
     }
   return (
-    <Form 
+    <Form
     buttonLabel='Agregar el riesgo'
     register={register}
     handleSubmit={handleSubmit}

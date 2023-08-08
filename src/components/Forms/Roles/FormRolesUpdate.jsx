@@ -1,8 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
-import { Form, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { ValidationRole } from "../../Validation/ValidationForms";
 import Input from "../../FormFields/Input";
+import Form from "../../FormFields/Form";
 
 const FormRolesUpdate = () => {
   const {
@@ -22,7 +23,14 @@ const FormRolesUpdate = () => {
       title={"Actualizar roles"}
       onSubmit={handleUpdateRole}
     >
-        <Input name={"role"} type={"text"} error={errors.role?.message} placeholder={"Escriba el rol"} label={"Escriba el rol"}/>
+      <Input name={"id"} className={"d-none"} type={"text"} />
+      <Input
+        name={"role"}
+        type={"text"}
+        error={errors.role?.message}
+        placeholder={"Escriba el rol"}
+        label={"Escriba el rol"}
+      />
     </Form>
   );
 };

@@ -13,11 +13,7 @@ export const Button = ({
     return (
       <button
         className={
-          className === ""
-            ? outline
-              ? `btn btn-outline-${variant}`
-              : `btn btn-${variant}`
-            : className
+          className 
         }
         {...rest}
         onClick={onClick}

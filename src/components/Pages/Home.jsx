@@ -1,7 +1,6 @@
 import React from 'react'
 import Navbar from '../common/Navbar'
 import GetRoles from '../Forms/Roles/GetRoles'
-import FormRolesUpdate from '../Forms/Roles/FormRolesUpdate'
 
 const Home = () => {
   return (
