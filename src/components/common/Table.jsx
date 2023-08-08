@@ -1,7 +1,9 @@
 
 import React, { Fragment } from 'react'
+import { ButtonLink } from './Button'
+import Icon from './Icon'
 
-const Table = ({arrayHeader, data,title,  handleDeleteRoom,deleteRoute,updateRoute,addRoute}) => {
+const Table = ({arrayHeader, data,title,  handleDelete,handleUpdate, deleteRoute,updateRoute,addRoute}) => {
 
     const ConvertDate= (date) => {
         const GetDate =  new Date(date)
@@ -69,9 +71,19 @@ const Table = ({arrayHeader, data,title,  handleDeleteRoom,deleteRoute,updateRou
                    </>):
                    null
                  }
-                 
              </Fragment>
-          )})} 
+          )})}
+          <td>
+                 <ButtonLink to={addRoute} className={"btn btn-success me-2"}>
+                  <Icon icon={["fas", "plus"]}/>
+                 </ButtonLink>
+                 <ButtonLink to={`${updateRoute}/${data.idrole}`} onClick={handleUpdate} className={"btn btn-warning me-2"}>
+                  <Icon icon={["fas", "pen"]}/>
+                 </ButtonLink>
+                 <ButtonLink to={``} onClick={handleDelete} className={"btn btn-danger"}>
+                  <Icon icon={["fas", "trash"]}/>
+                 </ButtonLink>
+          </td> 
         </tr>
       ))}
     </tbody>

@@ -19,7 +19,7 @@ export const Modal = ({
                 </h5>
                 <Icon
                   className="border-0 "
-                  icon={{ icon: ["fas", "xmark"] }}
+                  icon={["fas", "xmark"]}
                   onClick={onClose}
                 />
               </section>

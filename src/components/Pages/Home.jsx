@@ -1,14 +1,15 @@
 import React from 'react'
 import Navbar from '../common/Navbar'
 import GetRoles from '../Forms/Roles/GetRoles'
+import FormRolesUpdate from '../Forms/Roles/FormRolesUpdate'
 
 const Home = () => {
   return (
-    <div className='row justify-content-center p-0'>
-        <div className="col-md-3">
+      <div className='row vw-100'>
+        <div className="col-md-2">
         <Navbar/>
         </div>
-        <div className="col-md-8">
+        <div className="col-md-10">
         <GetRoles />
         </div>
     </div>
