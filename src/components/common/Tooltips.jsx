@@ -1,22 +1,21 @@
-import React, { useEffect, useRef } from "react";
-import { Tooltip } from 'bootstrap';
+import { Tooltip as BsTooltip } from "bootstrap"
+import React, { useEffect, useRef } from "react"
 
-const Tooltips = ({children, text}) => {
-    //Le poasamoa un ref a child para que pase la spropiedades
-    const childRef = useRef(undefined)
+export const Tooltips = ({children, text}) => {
+    const childRef = useRef()
+
     useEffect(() => {
-        //Propeerties of Tooltip
-        const t = new Tooltip(childRef.current, {
+        const t = new BsTooltip(childRef.current, {
             title: text,
             placement: "top",
-            trigger: "click hover"
+            trigger: "hover"
         })
-    
-      return () => {
-        t.dispose();
-      }
+        return () => t.dispose()
     }, [text])
-  return React.cloneElement(children, { ref: childRef })
-};
 
-export default Tooltips;
+    return(
+      <section ref={childRef}>
+        {children}
+      </section>
+    ) 
+}

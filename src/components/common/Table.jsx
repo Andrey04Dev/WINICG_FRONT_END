@@ -2,6 +2,7 @@
 import React, { Fragment } from 'react'
 import { ButtonLink } from './Button'
 import Icon from './Icon'
+import {Tooltips} from './Tooltips'
 
 const Table = ({arrayHeader, data,title,  handleDelete,handleUpdate, deleteRoute,updateRoute,addRoute}) => {
 
@@ -17,7 +18,7 @@ const Table = ({arrayHeader, data,title,  handleDelete,handleUpdate, deleteRoute
         {arrayHeader?.map((header, index) => (
           <th key={index}>
             {
-             header === "idrole"
+             header === "idrole" || header === "idaudit" || header === "idcertification"
                ? "Código"
                : header === "Role"
                ? "Rol"
@@ -31,6 +32,31 @@ const Table = ({arrayHeader, data,title,  handleDelete,handleUpdate, deleteRoute
                ? "Booker"
                :header === "iduser"
                ? "ID"
+               :header === "nameaudit"
+               ? "Nombre del auditor"
+               :
+               header === "audit_date"
+               ? "Fecha de auditoría"
+               :
+               header === "audit_time"
+               ? "Hora de auditoría"
+               :
+               header === "topic_audit"
+               ? "Tema de auditoría"
+               :header === "number_day"
+               ? "Cantidad de días"
+               :header === "kind_audit"
+               ? "Tipo de auditoría"
+               :header === "goal_audit"
+               ? "Meta de auditoría"
+               :header === "audit_process"
+               ? "Proceso de auditoría"
+               :header === "isorule"
+               ? "Norma a evaluar"
+               :header === "name_certification"
+               ? "Nombre de la certificación"
+               :header === "certifcation_date"
+               ? "Fecha de la certificación"
                :
                header[0].toUpperCase() + header.substring(1)}
           </th>
@@ -73,16 +99,16 @@ const Table = ({arrayHeader, data,title,  handleDelete,handleUpdate, deleteRoute
                  }
              </Fragment>
           )})}
-          <td>
-                 <ButtonLink to={addRoute} className={"btn btn-success me-2"}>
+          <td className='d-flex justify-content-center'>
+          <Tooltips text={"Agregar"}><ButtonLink to={addRoute} className={"btn btn-success me-2"}>
                   <Icon icon={["fas", "plus"]}/>
-                 </ButtonLink>
-                 <ButtonLink to={`${updateRoute}/${data.idrole}`} onClick={handleUpdate} className={"btn btn-warning me-2"}>
+                 </ButtonLink></Tooltips>
+                 <Tooltips text={"Actualizar"}><ButtonLink to={`${updateRoute}/${data.idrole}`} onClick={handleUpdate} className={"btn btn-warning me-2"}>
                   <Icon icon={["fas", "pen"]}/>
-                 </ButtonLink>
-                 <ButtonLink to={``} onClick={handleDelete} className={"btn btn-danger"}>
+                 </ButtonLink></Tooltips>
+                 <Tooltips text={"Eliminar"}><ButtonLink to={``} onClick={handleDelete} className={"btn btn-danger"}>
                   <Icon icon={["fas", "trash"]}/>
-                 </ButtonLink>
+                 </ButtonLink></Tooltips>
           </td> 
         </tr>
       ))}

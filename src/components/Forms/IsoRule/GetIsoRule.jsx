@@ -22,9 +22,11 @@ const GetIsoRule = () => {
   const handleOpenDeleteForm = ()=>{
     setSetshowModaldeleteIsoRule(true)
   }
-  const handleCloseModal = () => {
-    setshowModalupdateIsoRule(false);
-    setshowModaldeleteIsoRule(false)
+  const handleCloseModalUpdate = () => {
+    setSetshowModalupdateIsoRule(false)
+  };
+  const handleCloseModalDelete = () => {
+    setSetshowModaldeleteIsoRule(false)
   };
 
   const initialState = useCallback(() => {
@@ -44,17 +46,18 @@ const GetIsoRule = () => {
           arrayHeader={arrayHeaderRiesgo}
           handleUpdate={handleOpenUpdateForm}
           handleDelete={handleOpenDeleteForm}
+          addRoute={"addIsoRule"}
           updateRoute={"/"}
           deleteRoute={"/"} /><Modal
             showModal={setshowModalupdateIsoRule}
             title={"Actualizar regla"}
-            onClose={handleCloseModal}
+            onClose={handleCloseModalUpdate}
             children={<><p>{id}</p><FormIsoRuleUpdate /></>}
-            footer={<><ButtonLink className={"btn btn-primary"} to={"/"} name={"Actualizar"} /><Button className={"btn btn-danger"} onClick={handleCloseModal} children={"Cancelar"} /></>} /><Modal
+            footer={<><ButtonLink className={"btn btn-primary"} to={""} name={"Actualizar"} /><Button className={"btn btn-danger"} onClick={handleCloseModalUpdate} children={"Cancelar"} /></>} /><Modal
               showModal={setshowModaldeleteIsoRule}
               title={"Actualizar regla"}
-              onClose={handleCloseModal}
-              footer={<><ButtonLink className={"btn btn-primary"} to={"/"} name={"Actualizar"} /><Button className={"btn btn-danger"} onClick={handleCloseModal} children={"Cancelar"} /></>}
+              onClose={handleCloseModalDelete}
+              footer={<><ButtonLink className={"btn btn-primary"} to={""} name={"Actualizar"} /><Button className={"btn btn-danger"} onClick={handleCloseModalDelete} children={"Cancelar"} /></>}
             >
             <p>¿Desea el eliminar la norma ISO con el{id}?</p>
           </Modal></>

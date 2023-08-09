@@ -1,8 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import React from 'react'
-import { Form, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { ValidationCertification } from '../../Validation/ValidationForms'
 import Input from '../../FormFields/Input'
+import Form from '../../FormFields/Form'
 
 const FormCertificationUpdate = () => {
     const {register, handleSubmit, formState:{errors} } =  useForm({resolver:yupResolver(ValidationCertification)})

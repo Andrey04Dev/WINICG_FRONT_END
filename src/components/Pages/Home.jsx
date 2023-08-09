@@ -12,8 +12,6 @@ const Home = () => {
         <Navbar/>
         </div>
         <div className="col-md-10">
-          <FormIsoRuleAdd/>
-        <GetIsoRule />
         </div>
     </div>
   )
