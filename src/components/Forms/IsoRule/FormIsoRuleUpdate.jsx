@@ -1,9 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import React from 'react'
-import { Form, useForm } from 'react-hook-form'
+import {useForm } from 'react-hook-form'
 import { ValidationIsoRule } from '../../Validation/ValidationForms'
 import Select from '../../FormFields/Select'
 import Input from '../../FormFields/Input'
+import Form from '../../FormFields/Form'
 
 const FormIsoRuleUpdate = () => {
     const {register, handleSubmit, formState:{errors} } =  useForm({resolver:yupResolver(ValidationIsoRule)})

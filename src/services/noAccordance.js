@@ -20,7 +20,7 @@ const GetAllNoAccordance = async () => {
   
   const AddNoAccordance = async (data) => {
     try {
-      const res = await http.get("/NoAccordance", data);
+      const res = await http.post("/NoAccordance/addNoAccordance", data);
       return res;
     } catch (error) {
       return error;
@@ -29,7 +29,7 @@ const GetAllNoAccordance = async () => {
   
   const UpdateNoAccordance = async (data, id) => {
     try {
-      const res = await http.get(`/NoAccordance/${id}`, data);
+      const res = await http.put(`/NoAccordance/updateNoAccordance/${id}`, data);
       return res;
     } catch (error) {
       return error;
@@ -38,7 +38,7 @@ const GetAllNoAccordance = async () => {
   
   const DeleteNoAccordance = async (id) => {
     try {
-      const res = await http.get(`/NoAccordance/${id}`);
+      const res = await http.delete(`/NoAccordance/deleteNoAccordance/${id}`);
       return res;
     } catch (error) {
       return error;

@@ -1,6 +1,9 @@
 import React from 'react'
 import Navbar from '../common/Navbar'
-import GetRoles from '../Forms/Roles/GetRoles'
+import GetAudit from '../Forms/Audit/GetAudit'
+import FormAuditAdd from '../Forms/Audit/FormAuditAdd'
+import GetIsoRule from '../Forms/IsoRule/GetIsoRule'
+import FormIsoRuleAdd from '../Forms/IsoRule/FormIsoRuleAdd'
 
 const Home = () => {
   return (
@@ -9,7 +12,8 @@ const Home = () => {
         <Navbar/>
         </div>
         <div className="col-md-10">
-        <GetRoles />
+          <FormIsoRuleAdd/>
+        <GetIsoRule />
         </div>
     </div>
   )

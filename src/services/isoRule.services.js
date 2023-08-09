@@ -20,7 +20,7 @@ const GetAllIsoRule = async () => {
   
   const AddIsoRule = async (data) => {
     try {
-      const res = await http.get("/IsoRule", data);
+      const res = await http.post("/IsoRule/addIsoRule", data);
       return res;
     } catch (error) {
       return error;
@@ -29,7 +29,7 @@ const GetAllIsoRule = async () => {
   
   const UpdateIsoRule = async (data, id) => {
     try {
-      const res = await http.get(`/IsoRule/${id}`, data);
+      const res = await http.put(`/IsoRule/updateIsoRule/${id}`, data);
       return res;
     } catch (error) {
       return error;
@@ -38,7 +38,7 @@ const GetAllIsoRule = async () => {
   
   const DeleteIsoRule = async (id) => {
     try {
-      const res = await http.get(`/IsoRule/${id}`);
+      const res = await http.delete(`/IsoRule/deleteIsoRule/${id}`);
       return res;
     } catch (error) {
       return error;

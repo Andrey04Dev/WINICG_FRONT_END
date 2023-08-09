@@ -20,7 +20,7 @@ const GetAllProcess = async () => {
   
   const AddProcess = async (data) => {
     try {
-      const res = await http.get("/Process", data);
+      const res = await http.post("/Process/addProcess", data);
       return res;
     } catch (error) {
       return error;
@@ -29,7 +29,7 @@ const GetAllProcess = async () => {
   
   const UpdateProcess = async (data, id) => {
     try {
-      const res = await http.get(`/Process/${id}`, data);
+      const res = await http.put(`/Process/updateProcess/${id}`, data);
       return res;
     } catch (error) {
       return error;
@@ -38,7 +38,7 @@ const GetAllProcess = async () => {
   
   const DeleteProcess = async (id) => {
     try {
-      const res = await http.get(`/Process/${id}`);
+      const res = await http.delete(`/Process/deleteProcess/${id}`);
       return res;
     } catch (error) {
       return error;

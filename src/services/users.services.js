@@ -20,7 +20,7 @@ const GetAllUser = async () => {
   
   const AddUser = async (data) => {
     try {
-      const res = await http.get("/User", data);
+      const res = await http.add("/User/addUser", data);
       return res;
     } catch (error) {
       return error;
@@ -29,7 +29,7 @@ const GetAllUser = async () => {
   
   const UpdateUser = async (data, id) => {
     try {
-      const res = await http.get(`/User/${id}`, data);
+      const res = await http.put(`/User/updateUser/${id}`, data);
       return res;
     } catch (error) {
       return error;
@@ -38,7 +38,7 @@ const GetAllUser = async () => {
   
   const DeleteUser = async (id) => {
     try {
-      const res = await http.get(`/User/${id}`);
+      const res = await http.delete(`/User/deleteUser/${id}`);
       return res;
     } catch (error) {
       return error;

@@ -20,7 +20,7 @@ const GetAllTasks = async () => {
   
   const AddTasks = async (data) => {
     try {
-      const res = await http.get("/Tasks", data);
+      const res = await http.post("/Tasks/addTask", data);
       return res;
     } catch (error) {
       return error;
@@ -29,7 +29,7 @@ const GetAllTasks = async () => {
   
   const UpdateTasks = async (data, id) => {
     try {
-      const res = await http.get(`/Tasks/${id}`, data);
+      const res = await http.put(`/Tasks/updateTask/${id}`, data);
       return res;
     } catch (error) {
       return error;
@@ -38,7 +38,7 @@ const GetAllTasks = async () => {
   
   const DeleteTasks = async (id) => {
     try {
-      const res = await http.get(`/Tasks/${id}`);
+      const res = await http.delete(`/Tasks/deleteTask/${id}`);
       return res;
     } catch (error) {
       return error;

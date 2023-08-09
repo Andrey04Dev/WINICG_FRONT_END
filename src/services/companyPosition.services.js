@@ -20,7 +20,7 @@ const GetAllCompanyPosition = async () => {
   
   const AddCompanyPosition = async (data) => {
     try {
-      const res = await http.get("/CompanyPosition", data);
+      const res = await http.post("/CompanyPosition/CompanyPosition", data);
       return res;
     } catch (error) {
       return error;
@@ -29,7 +29,7 @@ const GetAllCompanyPosition = async () => {
   
   const UpdateCompanyPosition = async (data, id) => {
     try {
-      const res = await http.get(`/CompanyPosition/${id}`, data);
+      const res = await http.put(`/CompanyPosition/updateCompanyPosition${id}`, data);
       return res;
     } catch (error) {
       return error;
@@ -38,7 +38,7 @@ const GetAllCompanyPosition = async () => {
   
   const DeleteCompanyPosition = async (id) => {
     try {
-      const res = await http.get(`/CompanyPosition/${id}`);
+      const res = await http.delete(`/CompanyPosition/deleteCompanyPosition/${id}`);
       return res;
     } catch (error) {
       return error;

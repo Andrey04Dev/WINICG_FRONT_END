@@ -20,7 +20,7 @@ const GetAllFlag = async () => {
   
   const AddFlag = async (data) => {
     try {
-      const res = await http.get("/Flag", data);
+      const res = await http.get("/Flag/addFlag", data);
       return res;
     } catch (error) {
       return error;
@@ -29,7 +29,7 @@ const GetAllFlag = async () => {
   
   const UpdateFlag = async (data, id) => {
     try {
-      const res = await http.get(`/Flag/${id}`, data);
+      const res = await http.put(`/Flag/updateFlag/${id}`, data);
       return res;
     } catch (error) {
       return error;
@@ -38,7 +38,7 @@ const GetAllFlag = async () => {
   
   const DeleteFlag = async (id) => {
     try {
-      const res = await http.get(`/Flag/${id}`);
+      const res = await http.delete(`/Flag/deleteFlag/${id}`);
       return res;
     } catch (error) {
       return error;
