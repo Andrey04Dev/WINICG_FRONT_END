@@ -10,7 +10,7 @@ export const Tooltips = ({children, text}) => {
             placement: "top",
             trigger: "hover"
         })
-        return () => t.dispose()
+        return () => t.hide()
     }, [text])
 
     return(

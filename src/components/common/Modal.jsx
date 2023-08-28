@@ -10,7 +10,7 @@ export const Modal = ({
   }) => {
     return (
       <>
-        <div className={showModal ? "d-block modal" : "modal"}>
+        <div className={showModal ? "d-block modal " : "modal"}>
           <div className={`modal-dialog ${size}`}>
             <div className="modal-content">
               <section className="modal-header">

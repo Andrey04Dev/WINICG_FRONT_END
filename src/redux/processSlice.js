@@ -41,8 +41,8 @@ export const UpdateProcess = createAsyncThunk(
     "Process/updateProcess", 
     async(data, thunkAPI)=>{
         try {
-            const {id} =  data
-            const res =  await ProcessService.UpdateProcess(data, id)
+            const {idprocess} =  data
+            const res =  await ProcessService.UpdateProcess(data, idprocess)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -65,7 +65,7 @@ export const DeleteProcess = createAsyncThunk(
 const initialState= {Process:null, loading: false, success:false, error:false, message:""};
 
 const ProcessSlice = createSlice({
-    name: "auth",
+    name: "process",
     initialState,
     extraReducers: (builder)=> {
         builder.addCase(GetAllProcess.pending, (state) => {
@@ -90,7 +90,6 @@ const ProcessSlice = createSlice({
         .addCase(GetProcessById.fulfilled,(state, {payload}) => {
             state.loading = false
             state.Process = payload;
-            console.log("Returno del slice", payload);
             state.success = true
             state.message = `La obtuvo la información del ${payload.id}`
         })
@@ -116,12 +115,12 @@ const ProcessSlice = createSlice({
         .addCase(UpdateProcess.fulfilled,(state, {payload}) => {
             state.Process = payload;
             state.success = true
-            state.message =  "No se pudo actualizar la información."
+            state.message =  "El proceso se ha agregado correctamente"
         })
         .addCase(UpdateProcess.rejected, (state) => {
             state.Process = null;
             state.success = false
-            state.message =  "El proceso se ha agregado correctamente"
+            state.message =  "No se pudo actualizar la información."
         })
         .addCase(DeleteProcess.pending, (state) => {
             state.loading = true
@@ -131,7 +130,7 @@ const ProcessSlice = createSlice({
             state.loading = false
             state.Process = payload;
             state.success = true
-            state.message =  `El proceso con el id ${payload.id} se ha eliminado correctamente`
+            state.message =  `El proceso se ha eliminado correctamente`
         })
         .addCase(DeleteProcess.rejected, (state) => {
             state.loading = false

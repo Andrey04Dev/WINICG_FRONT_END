@@ -9,6 +9,7 @@ import RiskSlice from './risksSlice'
 import RolesSlice from './rolesSlice'
 import TaskSlice from './taskSlice'
 import UserSlice from './userSlice'
+import PositionSlice from './positionSlice'
 
 const { configureStore } = require("@reduxjs/toolkit")
 
@@ -23,6 +24,7 @@ const reducer = {
    risk: RiskSlice,
    roles: RolesSlice,
    tasks: TaskSlice,
+   position: PositionSlice,
    users: UserSlice
 }
 

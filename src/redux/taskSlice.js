@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import TasksService from "../services/tasks.services";
 
-export const GetAllTask = createAsyncThunk(
+export const GetAllTaskProcess = createAsyncThunk(
     "Task/getAllTask", 
     async(_, thunkAPI)=>{
         try {
-            const res =  await TasksService.GetAllTask()
+            const res =  await TasksService.GetAllTasks()
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -13,11 +13,11 @@ export const GetAllTask = createAsyncThunk(
     }
 )
 
-export const GetTaskById = createAsyncThunk(
+export const GetTaskByIdProcess = createAsyncThunk(
     "Task/getTaskById", 
     async(id, thunkAPI)=>{
         try {
-            const res =  await TasksService.GetTaskById(id)
+            const res =  await TasksService.GetTasksById(id)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -25,11 +25,11 @@ export const GetTaskById = createAsyncThunk(
     }
 )
 
-export const AddTask = createAsyncThunk(
+export const AddTaskProcess = createAsyncThunk(
     "Task/addTask", 
     async(data, thunkAPI)=>{
         try {
-            const res =  await TasksService.AddTask(data)
+            const res =  await TasksService.AddTasks(data)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -37,12 +37,12 @@ export const AddTask = createAsyncThunk(
     }
 )
 
-export const UpdateTask = createAsyncThunk(
+export const UpdateTaskProcess = createAsyncThunk(
     "Task/updateTask", 
     async(data, thunkAPI)=>{
         try {
-            const {id} =  data
-            const res =  await TasksService.UpdateTask(data, id)
+            const {idtask} =  data
+            const res =  await TasksService.UpdateTasks(data, idtask)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -50,11 +50,11 @@ export const UpdateTask = createAsyncThunk(
     }
 )
 
-export const DeleteTask = createAsyncThunk(
+export const DeleteTaskProcess = createAsyncThunk(
     "Task/deleteTask", 
     async(id, thunkAPI)=>{
         try {
-            const res =  await TasksService.DeleteTask(id)
+            const res =  await TasksService.DeleteTasks(id)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -68,72 +68,72 @@ const TaskSlice = createSlice({
     name: "auth",
     initialState,
     extraReducers: (builder)=> {
-        builder.addCase(GetAllTask.pending, (state) => {
+        builder.addCase(GetAllTaskProcess.pending, (state) => {
             state.loading = true
             state.Task = null;
         })
-        .addCase(GetAllTask.fulfilled,(state, {payload}) => {
+        .addCase(GetAllTaskProcess.fulfilled,(state, {payload}) => {
             state.loading = false
             state.Task = payload;
             state.success = true
             state.message = "Su petición ha sido concedida."
         })
-        .addCase(GetAllTask.rejected, (state) => {
+        .addCase(GetAllTaskProcess.rejected, (state) => {
             state.loading = false
             state.Task = null;
             state.message = "La lista esta vacia"
         })
-        .addCase(GetTaskById.pending, (state) => {
+        .addCase(GetTaskByIdProcess.pending, (state) => {
             state.loading = true
             state.Task = null;
         })
-        .addCase(GetTaskById.fulfilled,(state, {payload}) => {
+        .addCase(GetTaskByIdProcess.fulfilled,(state, {payload}) => {
             state.loading = false
             state.Task = payload;
             console.log("Returno del slice", payload);
             state.success = true
             state.message = `La obtuvo la información del ${payload.id}`
         })
-        .addCase(GetTaskById.rejected, (state) => {
+        .addCase(GetTaskByIdProcess.rejected, (state) => {
             state.loading = false
             state.Task = null;
             state.message = "No se pudo obtener la información."
         })
-        .addCase(AddTask.fulfilled,(state, {payload}) => {
+        .addCase(AddTaskProcess.fulfilled,(state, {payload}) => {
             console.log("Entro al createslice",payload );
             state.success = true
             state.message =  "La tarea se ha agregado correctamente"
         })
-        .addCase(AddTask.rejected, (state) => {
+        .addCase(AddTaskProcess.rejected, (state) => {
             state.success = false
             state.loading =  true
             state.message =  "No se pudo agregar la información."
         })
-        .addCase(UpdateTask.pending,(state, {payload}) => {
+        .addCase(UpdateTaskProcess.pending,(state, {payload}) => {
             state.success = true
             state.message =  "No se pudo actualizar la información."
         })
-        .addCase(UpdateTask.fulfilled,(state, {payload}) => {
+        .addCase(UpdateTaskProcess.fulfilled,(state, {payload}) => {
             state.Task = payload;
             state.success = true
-            state.message =  "No se pudo actualizar la información."
-        })
-        .addCase(UpdateTask.rejected, (state) => {
-            state.Task = null;
-            state.success = false
             state.message =  "La tarea se ha agregado correctamente"
         })
-        .addCase(DeleteTask.pending, (state) => {
+        .addCase(UpdateTaskProcess.rejected, (state) => {
+            state.Task = null;
+            state.success = false
+            state.message =  "No se pudo actualizar la información."
+        })
+        .addCase(DeleteTaskProcess.pending, (state) => {
             state.loading = true
             state.Task = null;
         })
-        .addCase(DeleteTask.fulfilled,(state, {payload}) => {
+        .addCase(DeleteTaskProcess.fulfilled,(state, {payload}) => {
             state.loading = false
             state.Task = payload;
             state.success = true
-            state.message =  `La tarea con el id ${payload.id} se ha eliminado correctamente`
+            state.message =  `La tarea  se ha eliminado correctamente`
         })
-        .addCase(DeleteTask.rejected, (state) => {
+        .addCase(DeleteTaskProcess.rejected, (state) => {
             state.loading = false
             state.Task = null;
             state.message =  "No se pudo borrar la información, porque no encontramos el ID."

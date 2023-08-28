@@ -1,13 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import UserService from "../services/users.services";
 
-const User =   JSON.parse(localStorage.getItem('user') || "{}")
+const user =   JSON.parse(localStorage.getItem('user') || "{}")
 
 export const GetAllUser = createAsyncThunk(
     "User/getAllUser", 
     async(_, thunkAPI)=>{
         try {
             const res =  await UserService.GetAllUser()
+            console.log("Devolviendo del slice de usuarios", res)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -43,8 +44,8 @@ export const UpdateUser = createAsyncThunk(
     "User/updateUser", 
     async(data, thunkAPI)=>{
         try {
-            const {id} =  data
-            const res =  await UserService.UpdateUser(data, id)
+            const {iduser} = data
+            const res =  await UserService.UpdateUser(data, iduser)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -64,8 +65,8 @@ export const DeleteUser = createAsyncThunk(
     }
 )
 
-const initialState = User=== ""
-? { isLoggedIn: true, User, loading: false, success: false, message : ""}
+const initialState = user === ""
+? { isLoggedIn: true, user, loading: false, success: false, message : ""}
 : { isLoggedIn: false, user: null, loading: false, success: false, message : "" };
 
 const UserSlice = createSlice({
@@ -75,28 +76,28 @@ const UserSlice = createSlice({
         builder.addCase(GetAllUser.pending, (state) => {
             state.loading = true
             state.isLoggedIn = false;
-            state.User = null;
+            state.user = null;
         })
         .addCase(GetAllUser.fulfilled,(state, {payload}) => {
             state.loading = false
-            state.User = payload;
+            state.user = payload;
             state.success = true
             state.message = "Su petición ha sido concedida."
         })
         .addCase(GetAllUser.rejected, (state) => {
             state.loading = false
-            state.User = null;
+            state.user = null;
             state.isLoggedIn = false;
             state.message = "La lista esta vacia"
         })
         .addCase(GetUserById.pending, (state) => {
             state.loading = true
             state.isLoggedIn = false;
-            state.User = null;
+            state.user = null;
         })
         .addCase(GetUserById.fulfilled,(state, {payload}) => {
             state.loading = false
-            state.User = payload;
+            state.user = payload;
             console.log("Returno del slice", payload);
             state.success = true
             state.isLoggedIn = false;
@@ -104,50 +105,60 @@ const UserSlice = createSlice({
         })
         .addCase(GetUserById.rejected, (state) => {
             state.loading = false
-            state.User = null;
+            state.user = null;
             state.message = "No se pudo obtener la información."
+        })
+        .addCase(AddUser.pending,(state, {payload}) => {
+            state.loading =  true
+            state.success = false
+            state.message =  "Se esta obteniendo el usuario"
         })
         .addCase(AddUser.fulfilled,(state, {payload}) => {
             console.log("Entro al createslice",payload );
+            state.loading =  false
             state.success = true
-            state.message =  "EL usuario se ha agregado correctamente"
+            state.message =  "El usuario se ha agregado correctamente"
         })
         .addCase(AddUser.rejected, (state) => {
             state.success = false
-            state.loading =  true
+            state.loading =  false
             state.isLoggedIn = false;
+            state.user = null;
             state.message =  "No se pudo agregar la información."
         })
         .addCase(UpdateUser.pending,(state, {payload}) => {
             state.success = true
             state.isLoggedIn = false;
+            state.loading =  true
             state.message =  "No se pudo actualizar la información."
         })
         .addCase(UpdateUser.fulfilled,(state, {payload}) => {
-            state.User = payload;
+            state.user = payload;
+            state.loading =  false
             state.success = true
-            state.message =  "No se pudo actualizar la información."
+            state.message =  "El usuario se ha actualizado correctamente"
         })
         .addCase(UpdateUser.rejected, (state) => {
-            state.User = null;
+            state.user = null;
             state.isLoggedIn = false;
             state.success = false
-            state.message =  "El usuario se ha agregado correctamente"
+            state.loading =  false
+            state.message =  " No se pudo actualizar la información."
         })
         .addCase(DeleteUser.pending, (state) => {
             state.loading = true
-            state.User = null;
+            state.user = null;
             state.isLoggedIn = false;
         })
         .addCase(DeleteUser.fulfilled,(state, {payload}) => {
             state.loading = false
-            state.User = payload;
+            state.user = payload;
             state.success = true
-            state.message =  `El usuario con el id ${payload.id} se ha eliminado correctamente`
+            state.message =  `El usuario se ha eliminado correctamente`
         })
         .addCase(DeleteUser.rejected, (state) => {
             state.loading = false
-            state.User = null;
+            state.user = null;
             state.isLoggedIn = false;
             state.message =  "No se pudo borrar la información, porque no encontramos el ID."
         })

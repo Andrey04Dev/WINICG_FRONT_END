@@ -3,7 +3,7 @@ import {http} from './http-content'
 const GetAllNoAccordance = async () => {
     try {
       const res = await http.get("/NoAccordance");
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -11,8 +11,8 @@ const GetAllNoAccordance = async () => {
   
   const GetNoAccordanceById = async (id) => {
     try {
-      const res = await http.get("/NoAccordance", id);
-      return res;
+      const res = await http.get(`/NoAccordance/${id}`);
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -21,7 +21,7 @@ const GetAllNoAccordance = async () => {
   const AddNoAccordance = async (data) => {
     try {
       const res = await http.post("/NoAccordance/addNoAccordance", data);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -30,7 +30,7 @@ const GetAllNoAccordance = async () => {
   const UpdateNoAccordance = async (data, id) => {
     try {
       const res = await http.put(`/NoAccordance/updateNoAccordance/${id}`, data);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -39,7 +39,7 @@ const GetAllNoAccordance = async () => {
   const DeleteNoAccordance = async (id) => {
     try {
       const res = await http.delete(`/NoAccordance/deleteNoAccordance/${id}`);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }

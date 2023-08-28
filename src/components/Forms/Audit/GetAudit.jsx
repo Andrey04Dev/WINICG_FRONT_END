@@ -1,15 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import Table from "../../common/Table";
-import { Outlet, useLocation, useParams } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GetAllAudits } from "../../../redux/auditSlice";
-import { Modal } from "../../common/Modal";
-import { Button, ButtonLink } from "../../common/Button";
-import FormIsoRuleUpdate from "../IsoRule/FormIsoRuleUpdate";
+import {  ButtonLink } from "../../common/Button";
 
 const GetAudit = () => {
   const arrayHeaderRiesgo = [
-    "idaudit",
+    "idaudits",
     "nameaudit",
     "audit_date",
     "audit_time",
@@ -19,27 +17,12 @@ const GetAudit = () => {
     "goal_audit",
     "audit_process",
     "isorule",
+    "fecha de creación", 
+    "fecha de actualización", 
   ];
   const location = useLocation();
-  const { id } = useParams();
   const dispatch = useDispatch();
   const { audits } = useSelector((state) => state.audit);
-  const [setshowModalupdateAudit, setSetshowModalupdateAudit] = useState(false);
-  const [setshowModaldeleteAudit, setSetshowModaldeleteAudit] = useState(false);
-
-  const handleOpenUpdateForm = () => {
-    setSetshowModalupdateAudit(true);
-  };
-  const handleOpenDeleteForm = () => {
-    setSetshowModaldeleteAudit(true);
-  };
-  const handleCloseModalUpdate = () => {
-    setSetshowModalupdateAudit(false);
-  };
-  const handleCloseModalDelete = () => {
-    setSetshowModaldeleteAudit(false);
-  };
-
   const initialState = useCallback(() => {
     dispatch(GetAllAudits());
   }, [dispatch]);
@@ -52,62 +35,15 @@ const GetAudit = () => {
     <div>
       {location.pathname && location.pathname === "/audit" ? (
         <>
+        {audits === "" ?null: (<ButtonLink name={"Agregar auditoría"}  className="btn btn-success mt-3 float-end" to={"/audit/addAudit"} />)}
           <Table
             title={"Lista de auditorías"}
             data={audits}
             arrayHeader={arrayHeaderRiesgo}
-            handleUpdate={handleOpenUpdateForm}
-            handleDelete={handleOpenDeleteForm}
             addRoute={"addAudit"}
-            updateRoute={"/"}
-            deleteRoute={"/"}
+            updateRoute={"updateAudit/"}
+            deleteRoute={"deleteAudit/"}
           />
-          <Modal
-            showModal={setshowModalupdateAudit}
-            title={"Actualizar regla"}
-            onClose={handleCloseModalUpdate}
-            children={
-              <>
-                <p>{id}</p>
-                <FormIsoRuleUpdate />
-              </>
-            }
-            footer={
-              <>
-                <ButtonLink
-                  className={"btn btn-primary"}
-                  to={"/"}
-                  name={"Actualizar"}
-                />
-                <Button
-                  className={"btn btn-danger"}
-                  onClick={handleCloseModalUpdate}
-                  children={"Cancelar"}
-                />
-              </>
-            }
-          />
-          <Modal
-            showModal={setshowModaldeleteAudit}
-            title={"Actualizar regla"}
-            onClose={handleCloseModalDelete}
-            footer={
-              <>
-                <ButtonLink
-                  className={"btn btn-primary"}
-                  to={"/"}
-                  name={"Actualizar"}
-                />
-                <Button
-                  className={"btn btn-danger"}
-                  onClick={handleCloseModalDelete}
-                  children={"Cancelar"}
-                />
-              </>
-            }
-          >
-            <p>¿Desea el eliminar la auditoría con el{id}?</p>
-          </Modal>
         </>
       ) : (
         <Outlet />

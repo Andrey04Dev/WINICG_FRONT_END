@@ -42,8 +42,8 @@ export const UpdateAudit = createAsyncThunk(
     "Audits/updateAudit", 
     async(data, thunkAPI)=>{
         try {
-            const {id} =  data
-            const res =  await AuditService.UpdateAudit(data, id)
+            const {idaudits} =  data
+            const res =  await AuditService.UpdateAudit(data, idaudits)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -81,7 +81,7 @@ const AuditSlice = createSlice({
         })
         .addCase(GetAllAudits.rejected, (state) => {
             state.loading = false
-            state.audits = null;
+            state.audits = [];
             state.message = "La lista esta vacia"
         })
         .addCase(GetAuditById.pending, (state) => {
@@ -117,12 +117,12 @@ const AuditSlice = createSlice({
         .addCase(UpdateAudit.fulfilled,(state, {payload}) => {
             state.audits = payload;
             state.success = true
-            state.message =  "No se pudo actualizar la información."
+            state.message =  "La auditoria se ha agregado correctamente"
         })
         .addCase(UpdateAudit.rejected, (state) => {
             state.audits = null;
             state.success = false
-            state.message =  "La auditoria se ha agregado correctamente"
+            state.message =  "No se pudo actualizar la información."
         })
         .addCase(DeleteAudit.pending, (state) => {
             state.loading = true
@@ -132,7 +132,7 @@ const AuditSlice = createSlice({
             state.loading = false
             state.audits = payload;
             state.success = true
-            state.message =  `La auditoria con el id ${payload.id} se ha eliminado correctamente`
+            state.message =  `La auditoria se ha eliminado correctamente`
         })
         .addCase(DeleteAudit.rejected, (state) => {
             state.loading = false

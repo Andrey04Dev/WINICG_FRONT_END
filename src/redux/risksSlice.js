@@ -41,8 +41,8 @@ export const UpdateRisk = createAsyncThunk(
     "Risk/updateRisk", 
     async(data, thunkAPI)=>{
         try {
-            const {id} =  data
-            const res =  await RiskService.UpdateRisk(data, id)
+            const {idrisks} =  data
+            const res =  await RiskService.UpdateRisk(data, idrisks)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -90,7 +90,6 @@ const RiskSlice = createSlice({
         .addCase(GetRiskById.fulfilled,(state, {payload}) => {
             state.loading = false
             state.Risk = payload;
-            console.log("Returno del slice", payload);
             state.success = true
             state.message = `La obtuvo la información del ${payload.id}`
         })
@@ -100,7 +99,6 @@ const RiskSlice = createSlice({
             state.message = "No se pudo obtener la información."
         })
         .addCase(AddRisk.fulfilled,(state, {payload}) => {
-            console.log("Entro al createslice",payload );
             state.success = true
             state.message =  "El riesgo se ha agregado correctamente"
         })
@@ -113,15 +111,15 @@ const RiskSlice = createSlice({
             state.success = true
             state.message =  "No se pudo actualizar la información."
         })
-        .addCase(UpdateRisk.fulfilled,(state, {payload}) => {
-            state.Risk = payload;
-            state.success = true
-            state.message =  "No se pudo actualizar la información."
-        })
-        .addCase(UpdateRisk.rejected, (state) => {
+        .addCase(UpdateRisk.rejected,(state) => {
             state.Risk = null;
             state.success = false
-            state.message =  "El riesgo se ha agregado correctamente"
+            state.message =  "No se pudo actualizar la información."
+        })
+        .addCase(UpdateRisk.fulfilled, (state, {payload}) => {
+            state.Risk = payload;
+            state.success = true
+            state.message =  "El riesgo se ha actualizado correctamente"
         })
         .addCase(DeleteRisk.pending, (state) => {
             state.loading = true
@@ -131,7 +129,7 @@ const RiskSlice = createSlice({
             state.loading = false
             state.Risk = payload;
             state.success = true
-            state.message =  `El riesgo con el id ${payload.id} se ha eliminado correctamente`
+            state.message =  `El riesgo se ha eliminado correctamente`
         })
         .addCase(DeleteRisk.rejected, (state) => {
             state.loading = false

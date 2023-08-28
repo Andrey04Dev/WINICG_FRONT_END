@@ -2,7 +2,8 @@ import {http} from './http-content'
 
 const GetAllAudit = async () => {
     try {
-      const res = await http.get("Audit");
+      const res = await http.get("/Audit");
+      console.log("Lo que trae la data en el axios", res.data)
       return res.data;
     } catch (error) {
       return error;
@@ -11,7 +12,7 @@ const GetAllAudit = async () => {
   
   const GetAuditById = async (id) => {
     try {
-      const res = await http.get("Audit", id);
+      const res = await http.get(`/Audit/${id}`);
       return res.data;
     } catch (error) {
       return error;
@@ -20,9 +21,8 @@ const GetAllAudit = async () => {
   
   const AddAudit = async (data) => {
     try {
-      console.log("Antes de services de aduit", data)
-      const res = await http.post("Audit/addAudit", data);
-      console.log("Despues de services de aduit", res.data)
+      console.log("ENtrada axio de audit", data)
+      const res = await http.post("/Audit/addAudit", data);
       return res.data;
     } catch (error) {
       return error;
@@ -31,7 +31,7 @@ const GetAllAudit = async () => {
   
   const UpdateAudit = async (data, id) => {
     try {
-      const res = await http.put(`Audit/updateAudit/${id}`, data);
+      const res = await http.put(`/Audit/updateAudit/${id}`, data);
       return res.data;
     } catch (error) {
       return error;
@@ -40,7 +40,7 @@ const GetAllAudit = async () => {
   
   const DeleteAudit = async (id) => {
     try {
-      const res = await http.delete(`Audit/deleteAudit/${id}`);
+      const res = await http.delete(`/Audit/deleteAudit/${id}`);
       return res.data;
     } catch (error) {
       return error;

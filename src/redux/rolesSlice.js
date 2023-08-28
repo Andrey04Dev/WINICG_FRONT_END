@@ -77,7 +77,7 @@ const RolesSlice = createSlice({
             state.loading = false
             state.Roles = payload;
             state.success = true
-            state.message = "Su petición ha sido concedida."
+            state.message = "Se han obtenido todas los roles."
         })
         .addCase(GetAllRoles.rejected, (state) => {
             state.loading = false
@@ -91,38 +91,45 @@ const RolesSlice = createSlice({
         .addCase(GetRolesById.fulfilled,(state, {payload}) => {
             state.loading = false
             state.Roles = payload;
-            console.log("Returno del slice", payload);
             state.success = true
-            state.message = `La obtuvo la información del ${payload.id}`
+            state.message = `Se obtuvo la información del ${payload.id}`
         })
         .addCase(GetRolesById.rejected, (state) => {
             state.loading = false
             state.Roles = null;
             state.message = "No se pudo obtener la información."
         })
+        .addCase(AddRoles.pending, (state) => {
+            state.success = false
+            state.loading =  true
+            state.message =  ""
+        })
         .addCase(AddRoles.fulfilled,(state, {payload}) => {
-            console.log("Entro al createslice de roles",payload );
             state.success = true
+            state.loading =  false
             state.message =  "El role se ha agregado correctamente"
         })
         .addCase(AddRoles.rejected, (state) => {
             state.success = false
-            state.loading =  true
+            state.loading =  false
             state.message =  "No se pudo agregar la información."
         })
         .addCase(UpdateRoles.pending,(state, {payload}) => {
-            state.success = true
+            state.success = false
+            state.loading =  true
             state.message =  "No se pudo actualizar la información."
         })
         .addCase(UpdateRoles.fulfilled,(state, {payload}) => {
             state.Roles = payload;
             state.success = true
-            state.message =  "No se pudo actualizar la información."
+            state.loading =  false
+            state.message =  "Se actualizó la información correctamente."
         })
         .addCase(UpdateRoles.rejected, (state) => {
             state.Roles = null;
+            state.loading =  false
             state.success = false
-            state.message =  "El role se ha agregado correctamente"
+            state.message =  "Ocurrio un error al actualizar."
         })
         .addCase(DeleteRoles.pending, (state) => {
             state.loading = true
@@ -132,7 +139,7 @@ const RolesSlice = createSlice({
             state.loading = false
             state.Roles = payload;
             state.success = true
-            state.message =  `El role con el id ${payload.id} se ha eliminado correctamente`
+            state.message =  `El rol se ha eliminado correctamente. Presione si para volver la tabla de roles`
         })
         .addCase(DeleteRoles.rejected, (state) => {
             state.loading = false

@@ -1,33 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import Table from '../../common/Table'
-import { Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetAllCertification } from '../../../redux/certificationSlice';
-import { Button, ButtonLink } from '../../common/Button';
-import { Modal } from '../../common/Modal';
-import FormCertificationUpdate from '../Certification/FormCertificationUpdate';
+import { ButtonLink } from '../../common/Button';
 
 const GetCertification = () => {
-  const arrayHeaderRiesgo = ["idaudit", "nameaudit", "audit_date", "audit_time", "topic_audit", "number_day","kind_audit","goal_audit","audit_process","isorule"];
+  const arrayHeaderRiesgo = ["idcertification", "certification_name", "certification_date", "createdate", "updatedate"];
   const location =  useLocation()
-  const {id} = useParams()
   const dispatch = useDispatch();
   const { certification } = useSelector((state) => state.certification);
-  const [setshowModalupdateCertification, setSetshowModalupdateCertification] = useState(false);
-  const [setshowModaldeleteCertification, setSetshowModaldeleteCertification] = useState(false);
-
-  const handleOpenUpdateForm = ()=>{
-    setSetshowModalupdateCertification(true)
-  }
-  const handleOpenDeleteForm = ()=>{
-    setSetshowModaldeleteCertification(true)
-  }
-  const handleCloseModalUpdate = () => {
-    setSetshowModalupdateCertification(false)
-  };
-  const handleCloseModalDelete = () => {
-    setSetshowModaldeleteCertification(false)
-  };
 
   const initialState = useCallback(() => {
     dispatch(GetAllCertification());
@@ -41,62 +23,15 @@ const GetCertification = () => {
     <div>
         {location.pathname && location.pathname === "/certification" ? (
         <>
+        {certification === "" ?null: (<ButtonLink name={"Agregar certificación"}  className="btn btn-success mt-3 float-end" to={"/certification/addCertification"} />)}
           <Table
             title={"Lista de certificaciones"}
             data={certification}
             arrayHeader={arrayHeaderRiesgo}
-            handleUpdate={handleOpenUpdateForm}
-            handleDelete={handleOpenDeleteForm}
             addRoute={"addCertification"}
-            updateRoute={"/"}
-            deleteRoute={"/"}
+            updateRoute={"updateCertification/"}
+            deleteRoute={"deleteCertification/"}
           />
-          <Modal
-            showModal={setshowModalupdateCertification}
-            title={"Actualizar regla"}
-            onClose={handleCloseModalUpdate}
-            children={
-              <>
-                <p>{id}</p>
-                <FormCertificationUpdate />
-              </>
-            }
-            footer={
-              <>
-                <ButtonLink
-                  className={"btn btn-primary"}
-                  to={"/"}
-                  name={"Actualizar"}
-                />
-                <Button
-                  className={"btn btn-danger"}
-                  onClick={handleCloseModalUpdate}
-                  children={"Cancelar"}
-                />
-              </>
-            }
-          />
-          <Modal
-            showModal={setshowModaldeleteCertification}
-            title={"Actualizar regla"}
-            onClose={handleCloseModalDelete}
-            footer={
-              <>
-                <ButtonLink
-                  className={"btn btn-primary"}
-                  to={"/"}
-                  name={"Actualizar"}
-                />
-                <Button
-                  className={"btn btn-danger"}
-                  onClick={handleCloseModalDelete}
-                  children={"Cancelar"}
-                />
-              </>
-            }
-          >
-            <p>¿Desea el eliminar la auditoría con el{id}?</p>
-          </Modal>
         </>
       ) : (
         <Outlet />

@@ -3,7 +3,7 @@ import {http} from './http-content'
 const GetAllCompanyPosition = async () => {
     try {
       const res = await http.get("/CompanyPosition");
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -12,7 +12,7 @@ const GetAllCompanyPosition = async () => {
   const GetCompanyPositionById = async (id) => {
     try {
       const res = await http.get("/CompanyPosition", id);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -21,7 +21,7 @@ const GetAllCompanyPosition = async () => {
   const AddCompanyPosition = async (data) => {
     try {
       const res = await http.post("/CompanyPosition/CompanyPosition", data);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -30,7 +30,7 @@ const GetAllCompanyPosition = async () => {
   const UpdateCompanyPosition = async (data, id) => {
     try {
       const res = await http.put(`/CompanyPosition/updateCompanyPosition${id}`, data);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -39,7 +39,7 @@ const GetAllCompanyPosition = async () => {
   const DeleteCompanyPosition = async (id) => {
     try {
       const res = await http.delete(`/CompanyPosition/deleteCompanyPosition/${id}`);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }

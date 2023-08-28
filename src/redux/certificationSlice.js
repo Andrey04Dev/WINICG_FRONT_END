@@ -18,6 +18,7 @@ export const GetCertificationById = createAsyncThunk(
     async(id, thunkAPI)=>{
         try {
             const res =  await CertificationService.GetCertificationById(id)
+            console.log(res)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -30,6 +31,7 @@ export const AddCertification = createAsyncThunk(
     async(data, thunkAPI)=>{
         try {
             const res =  await CertificationService.AddCertification(data)
+            console.log("Data del creatasynthinmk", res)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -41,8 +43,8 @@ export const UpdateCertification = createAsyncThunk(
     "Certification/updateCertification", 
     async(data, thunkAPI)=>{
         try {
-            const {id} =  data
-            const res =  await CertificationService.UpdateCertification(data, id)
+            const {idcertification} =  data
+            const res =  await CertificationService.UpdateCertification(data, idcertification)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -80,7 +82,7 @@ const CertificationSlice = createSlice({
         })
         .addCase(GetAllCertification.rejected, (state) => {
             state.loading = false
-            state.certification = null;
+            state.certification = [];
             state.message = "La lista esta vacia"
         })
         .addCase(GetCertificationById.pending, (state) => {
@@ -96,8 +98,12 @@ const CertificationSlice = createSlice({
         })
         .addCase(GetCertificationById.rejected, (state) => {
             state.loading = false
-            state.certification = null;
+            state.certification = [];
             state.message = "No se pudo obtener la información."
+        })
+        .addCase(AddCertification.pending, (state) => {
+            state.success = false
+            state.loading =  true
         })
         .addCase(AddCertification.fulfilled,(state, {payload}) => {
             console.log("Entro al createslice",payload );
@@ -116,12 +122,12 @@ const CertificationSlice = createSlice({
         .addCase(UpdateCertification.fulfilled,(state, {payload}) => {
             state.certification = payload;
             state.success = true
-            state.message =  "No se pudo actualizar la información."
+            state.message =  "La certificación se ha agregado correctamente"
         })
         .addCase(UpdateCertification.rejected, (state) => {
-            state.certification = null;
+            state.certification = [];
             state.success = false
-            state.message =  "La certificación se ha agregado correctamente"
+            state.message =  "No se pudo actualizar la información."
         })
         .addCase(DeleteCertification.pending, (state) => {
             state.loading = true
@@ -131,11 +137,11 @@ const CertificationSlice = createSlice({
             state.loading = false
             state.certification = payload;
             state.success = true
-            state.message =  `La certificación con el id ${payload.id} se ha eliminado correctamente`
+            state.message =  `La certificación  se ha eliminado correctamente`
         })
         .addCase(DeleteCertification.rejected, (state) => {
             state.loading = false
-            state.certification = null;
+            state.certification = [];
             state.message =  "No se pudo borrar la información, porque no encontramos el ID."
         })
     },

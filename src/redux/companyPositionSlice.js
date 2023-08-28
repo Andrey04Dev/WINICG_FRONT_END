@@ -41,8 +41,8 @@ export const UpdateCompanyPosition = createAsyncThunk(
     "companyPosition/updateCompanyPosition", 
     async(data, thunkAPI)=>{
         try {
-            const {id} =  data
-            const res =  await CompanyPositionService.UpdateCompanyPosition(data, id)
+            const {idcompanY_POSITION} =  data
+            const res =  await CompanyPositionService.UpdateCompanyPosition(data, idcompanY_POSITION)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)

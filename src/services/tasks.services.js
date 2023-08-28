@@ -3,7 +3,8 @@ import {http} from './http-content'
 const GetAllTasks = async () => {
     try {
       const res = await http.get("/Tasks");
-      return res;
+      console.log(res.data)
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -11,8 +12,8 @@ const GetAllTasks = async () => {
   
   const GetTasksById = async (id) => {
     try {
-      const res = await http.get("/Tasks", id);
-      return res;
+      const res = await http.get(`/Tasks/${id}`, );
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -21,7 +22,7 @@ const GetAllTasks = async () => {
   const AddTasks = async (data) => {
     try {
       const res = await http.post("/Tasks/addTask", data);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -30,7 +31,7 @@ const GetAllTasks = async () => {
   const UpdateTasks = async (data, id) => {
     try {
       const res = await http.put(`/Tasks/updateTask/${id}`, data);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -39,7 +40,7 @@ const GetAllTasks = async () => {
   const DeleteTasks = async (id) => {
     try {
       const res = await http.delete(`/Tasks/deleteTask/${id}`);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }

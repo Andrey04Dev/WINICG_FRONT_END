@@ -6,11 +6,13 @@ const Textarea = ({
     className,
     placeholder,
     id,
+    defaultValue,
     ...rest
   }) => {
     return (
       <div className="form-floating mb-2">
         <textarea
+        defaultValue={defaultValue}
           id={id}
           name={name}
           aria-invalid={error ? "true" : "false"}

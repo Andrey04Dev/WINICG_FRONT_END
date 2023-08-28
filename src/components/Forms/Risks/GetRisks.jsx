@@ -1,33 +1,17 @@
-import React from 'react'
-import Table from '../../common/Table'
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-import { Button, ButtonLink } from '../../common/Button';
-import { Modal } from '../../common/Modal';
-import { useEffect } from 'react';
-import { useCallback } from 'react';
-import FormRisksUpdate from './FormRisksUpdate';
-import { GetAllRisk } from '../../../redux/risksSlice';
+import React from "react";
+import Table from "../../common/Table";
+import { Outlet, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useCallback } from "react";
+import { GetAllRisk } from "../../../redux/risksSlice";
+import { ButtonLink } from "../../common/Button";
 
 const GetRisks = () => {
-  const arrayHeaderRiesgo = ["idrole", "role", "createdate", "updatedate"];
-  const {id} = useParams()
+  const arrayHeaderRiesgo = ["idrisks", "namerule", "origen","namerisk","consequense",'source_risk',"createdate", "updatedate"];
+  const location = useLocation();
   const dispatch = useDispatch();
   const { Risk } = useSelector((state) => state.risk);
-  const [setshowModalupdateRisk, setSetshowModalupdateRisk] = useState(false);
-  const [setshowModaldeleteRisk, setSetshowModaldeleteRisk] = useState(false);
-
-  const handleOpenUpdateForm = ()=>{
-    setSetshowModalupdateRisk(true)
-  }
-  const handleOpenDeleteForm = ()=>{
-    setSetshowModaldeleteRisk(true)
-  }
-  const handleCloseModal = () => {
-    setshowModalupdateRisk(false);
-    setshowModaldeleteRisk(false)
-  };
 
   const initialState = useCallback(() => {
     dispatch(GetAllRisk());
@@ -39,32 +23,29 @@ const GetRisks = () => {
   }, [initialState]);
   return (
     <div>
-      <Table
-        title={"Lista de Riesgos"}
-        data={Risk}
-        arrayHeader={arrayHeaderRiesgo}
-        handleUpdate={handleOpenUpdateForm}
-        handleDelete={handleOpenDeleteForm}
-        updateRoute={"/"}
-        deleteRoute={"/"}
-      />
-      <Modal
-        showModal={setshowModalupdateRisk}
-        title={"Actualizar riesgo"}
-        onClose={handleCloseModal}
-        children={ <><p>{id}</p><FormRisksUpdate /></>}
-        footer={<><ButtonLink className={"btn btn-primary"} to={"/"} name={"Actualizar"}/><Button className={"btn btn-danger"} onClick={handleCloseModal} children={"Cancelar"}/></>}
-      />
-      <Modal
-        showModal={setshowModaldeleteRisk}
-        title={"Actualizar riesgo"}
-        onClose={handleCloseModal}
-        footer={<><ButtonLink className={"btn btn-primary"} to={"/"} name={"Actualizar"}/><Button className={"btn btn-danger"} onClick={handleCloseModal} children={"Cancelar"}/></>}
-      >
-        <p>¿Desea el eliminar el riesgo con el{id}?</p>
-      </Modal>
+      {location.pathname && location.pathname === "/risks" ? (
+        <>
+        {Risk=== "" ? null : (
+            <ButtonLink
+              name={"Agregar riesgo"}
+              className="btn btn-success float-end"
+              to={"/risks/addRisks"}
+            />
+          )}
+          <Table
+            title={"Lista de Riesgos"}
+            data={Risk}
+            arrayHeader={arrayHeaderRiesgo}
+            addRoute={"addRisks"}
+            updateRoute={"updateRisks/"}
+            deleteRoute={"deleteRisks/"}
+          />
+        </>
+      ) : (
+        <Outlet />
+      )}
     </div>
   );
-}
+};
 
-export default GetRisks
+export default GetRisks;

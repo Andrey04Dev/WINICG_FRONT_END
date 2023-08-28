@@ -3,7 +3,7 @@ import {http} from './http-content'
 const GetAllProcess = async () => {
     try {
       const res = await http.get("/Process");
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -11,8 +11,9 @@ const GetAllProcess = async () => {
   
   const GetProcessById = async (id) => {
     try {
-      const res = await http.get("/Process", id);
-      return res;
+      const res = await http.get(`/Process/${id}`);
+      console.log(res.data)
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -21,7 +22,7 @@ const GetAllProcess = async () => {
   const AddProcess = async (data) => {
     try {
       const res = await http.post("/Process/addProcess", data);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -30,7 +31,7 @@ const GetAllProcess = async () => {
   const UpdateProcess = async (data, id) => {
     try {
       const res = await http.put(`/Process/updateProcess/${id}`, data);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -39,7 +40,7 @@ const GetAllProcess = async () => {
   const DeleteProcess = async (id) => {
     try {
       const res = await http.delete(`/Process/deleteProcess/${id}`);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }

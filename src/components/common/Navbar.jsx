@@ -23,7 +23,7 @@ const Navbar = () => {
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
-        <li className="nav-item">
+        <li className="nav-item" >
             <Link className="nav-link" to="/audit">
             <Icon className={"me-3"} icon={["fas", "user-tie"]}/>Auditoría
             </Link>
@@ -34,17 +34,17 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="/company_position">
             <Icon className={"me-3"} icon={["fas", "briefcase"]}/>Posición
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="/flag">
             <Icon className={"me-3"} icon={["fas", "flag"]}/>Indicador
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="/noAccordance">
             <Icon className={"me-3"} icon={["fas", "file-circle-xmark"]}/>No conformidad
             </Link>
           </li>
@@ -54,81 +54,31 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item active">
-            <Link className="nav-link" to="/isoRule">
+            <Link className="nav-link" to="/process">
               <Icon className={"me-3"} icon={["fas", "arrow-trend-up"]}/>Procesos
             </Link>
           </li>
           <li className="nav-item active">
-            <Link className="nav-link" to="/isoRule">
+            <Link className="nav-link" to="/risks">
               <Icon className={"me-3"} icon={["fas", "triangle-exclamation"]}/>Riesgos
             </Link>
           </li>
           <li className="nav-item active">
-            <Link className="nav-link" to="/isoRule">
+            <Link className="nav-link" to="/roles">
               <Icon className={"me-3"} icon={["fas", "user-gear"]}/>Roles
             </Link>
           </li>
           <li className="nav-item active">
-            <Link className="nav-link" to="/isoRule">
+            <Link className="nav-link" to="/tasks">
               <Icon className={"me-3"} icon={["fas", "list-check"]}/>Tareas
             </Link>
           </li>
           <li className="nav-item active">
-            <Link className="nav-link" to="/isoRule">
+            <Link className="nav-link" to="/users">
               <Icon className={"me-3"} icon={["fas", "user"]}/>Usuarios
             </Link>
           </li>
-          
-          <li className="nav-item dropdown">
-            <Link
-              className="nav-link dropdown-toggle"
-              to="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Dropdown
-            </Link>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <Link className="dropdown-item" to="/">
-                Action
-              </Link>
-              <Link className="dropdown-item" to="/">
-                Another action
-              </Link>
-              <div className="dropdown-divider"></div>
-              <Link className="dropdown-item" to="/">
-                Something else here
-              </Link>
-            </div>
-          </li>
-          <li className="nav-item">
-            <Link
-              className="nav-link disabled"
-              to="#"
-              tabindex="-1"
-              aria-disabled="true"
-            >
-              Disabled
-            </Link>
-          </li>
         </ul>
-        <form className="form-inline my-2 my-lg-0">
-          <input
-            className="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button
-            className="btn btn-outline-success my-2 my-sm-0"
-            type="submit"
-          >
-            Search
-          </button>
-        </form>
       </div>
     </nav>
   );

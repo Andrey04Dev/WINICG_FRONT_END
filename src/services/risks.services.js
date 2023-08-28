@@ -3,7 +3,8 @@ import {http} from './http-content'
 const GetAllRisk = async () => {
     try {
       const res = await http.get("/Risk");
-      return res;
+      console.log(res.data)
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -11,8 +12,8 @@ const GetAllRisk = async () => {
   
   const GetRiskById = async (id) => {
     try {
-      const res = await http.get("/Risk", id);
-      return res;
+      const res = await http.get(`/Risk/${id}`);
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -21,7 +22,7 @@ const GetAllRisk = async () => {
   const AddRisk = async (data) => {
     try {
       const res = await http.post("/Risk/addRisk", data);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -30,7 +31,7 @@ const GetAllRisk = async () => {
   const UpdateRisk = async (data, id) => {
     try {
       const res = await http.put(`/Risk/updateRisk/${id}`, data);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -39,7 +40,7 @@ const GetAllRisk = async () => {
   const DeleteRisk = async (id) => {
     try {
       const res = await http.delete(`/Risk/deleteRisk/${id}`);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }

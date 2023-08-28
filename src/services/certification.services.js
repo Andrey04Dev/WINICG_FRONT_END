@@ -2,8 +2,8 @@ import { http } from "./http-content";
 
 const GetAllCertification = async () => {
   try {
-    const res = await http.get("/Certification");
-    return res;
+    const res = await http.get("Certification");
+    return res.data;
   } catch (error) {
     return error;
   }
@@ -11,8 +11,8 @@ const GetAllCertification = async () => {
 
 const GetCertificationById = async (id) => {
   try {
-    const res = await http.get("/Certification", id);
-    return res;
+    const res = await http.get(`Certification/${id}`);
+    return res.data;
   } catch (error) {
     return error;
   }
@@ -20,8 +20,9 @@ const GetCertificationById = async (id) => {
 
 const AddCertification = async (data) => {
   try {
-    const res = await http.get("/Certification/addCertification", data);
-    return res;
+    const res = await http.post("Certification/addCertification", data);
+    console.log("Dentro del axios add:", data)
+    return res.data;
   } catch (error) {
     return error;
   }
@@ -29,8 +30,8 @@ const AddCertification = async (data) => {
 
 const UpdateCertification = async (data, id) => {
   try {
-    const res = await http.put(`/Certification/updateCertification/${id}`, data);
-    return res;
+    const res = await http.put(`Certification/updateCertification/${id}`, data);
+    return res.data;
   } catch (error) {
     return error;
   }
@@ -38,8 +39,8 @@ const UpdateCertification = async (data, id) => {
 
 const DeleteCertification = async (id) => {
   try {
-    const res = await http.delete(`/Certification/deleteCertification/${id}`);
-    return res;
+    const res = await http.delete(`Certification/deleteCertification/${id}`);
+    return res.data;
   } catch (error) {
     return error;
   }

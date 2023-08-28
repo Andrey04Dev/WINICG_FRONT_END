@@ -41,8 +41,8 @@ export const UpdateNoAccordance = createAsyncThunk(
     "NoAccordance/updateNoAccordance", 
     async(data, thunkAPI)=>{
         try {
-            const {id} =  data
-            const res =  await NoAccordanceService.UpdateNoAccordance(data, id)
+            const {idaccordance} =  data
+            const res =  await NoAccordanceService.UpdateNoAccordance(data, idaccordance)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -90,7 +90,6 @@ const NoAccordanceSlice = createSlice({
         .addCase(GetNoAccordanceById.fulfilled,(state, {payload}) => {
             state.loading = false
             state.NoAccordance = payload;
-            console.log("Returno del slice", payload);
             state.success = true
             state.message = `La obtuvo la información del ${payload.id}`
         })
@@ -100,7 +99,6 @@ const NoAccordanceSlice = createSlice({
             state.message = "No se pudo obtener la información."
         })
         .addCase(AddNoAccordance.fulfilled,(state, {payload}) => {
-            console.log("Entro al createslice",payload );
             state.success = true
             state.message =  "La conformidad se ha agregado correctamente"
         })
@@ -116,12 +114,12 @@ const NoAccordanceSlice = createSlice({
         .addCase(UpdateNoAccordance.fulfilled,(state, {payload}) => {
             state.NoAccordance = payload;
             state.success = true
-            state.message =  "No se pudo actualizar la información."
+            state.message =  "La conformidad se ha agregado correctamente"
         })
         .addCase(UpdateNoAccordance.rejected, (state) => {
             state.NoAccordance = null;
             state.success = false
-            state.message =  "La conformidad se ha agregado correctamente"
+            state.message =  "No se pudo actualizar la información."
         })
         .addCase(DeleteNoAccordance.pending, (state) => {
             state.loading = true

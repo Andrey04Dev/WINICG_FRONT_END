@@ -6,6 +6,7 @@ export const GetAllIsoRules = createAsyncThunk(
     async(_, thunkAPI)=>{
         try {
             const res =  await IsoRuleService.GetAllIsoRule()
+            console.log("Site", res)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -41,8 +42,8 @@ export const UpdateIsoRules = createAsyncThunk(
     "isoRules/updateIsoRules", 
     async(data, thunkAPI)=>{
         try {
-            const {id} =  data
-            const res =  await IsoRuleService.UpdateIsoRule(data, id)
+            const {idrule} =  data
+            const res =  await IsoRuleService.UpdateIsoRule(data, idrule)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -80,7 +81,7 @@ const IsoRulesSlice = createSlice({
         })
         .addCase(GetAllIsoRules.rejected, (state) => {
             state.loading = false
-            state.isoRules = null;
+            state.isoRules = [];
             state.message = "La lista esta vacia"
         })
         .addCase(GetIsoRulesById.pending, (state) => {
@@ -90,13 +91,12 @@ const IsoRulesSlice = createSlice({
         .addCase(GetIsoRulesById.fulfilled,(state, {payload}) => {
             state.loading = false
             state.isoRules = payload;
-            console.log("Returno del slice", payload);
             state.success = true
             state.message = `La obtuvo la información del ${payload.id}`
         })
         .addCase(GetIsoRulesById.rejected, (state) => {
             state.loading = false
-            state.isoRules = null;
+            state.isoRules = [];
             state.message = "No se pudo obtener la información."
         })
         .addCase(AddIsoRules.fulfilled,(state, {payload}) => {
@@ -116,12 +116,12 @@ const IsoRulesSlice = createSlice({
         .addCase(UpdateIsoRules.fulfilled,(state, {payload}) => {
             state.isoRules = payload;
             state.success = true
-            state.message =  "No se pudo actualizar la información."
+            state.message =  "La norma ISO se ha agregado correctamente."
         })
         .addCase(UpdateIsoRules.rejected, (state) => {
-            state.isoRules = null;
+            state.isoRules = [];
             state.success = false
-            state.message =  "La norma ISO se ha agregado correctamente"
+            state.message =  "No se pudo actualizar la información."
         })
         .addCase(DeleteIsoRules.pending, (state) => {
             state.loading = true
@@ -131,11 +131,11 @@ const IsoRulesSlice = createSlice({
             state.loading = false
             state.isoRules = payload;
             state.success = true
-            state.message =  `La norma ISO con el id ${payload.id} se ha eliminado correctamente`
+            state.message =  `La norma ISO se ha eliminado correctamente`
         })
         .addCase(DeleteIsoRules.rejected, (state) => {
             state.loading = false
-            state.isoRules = null;
+            state.isoRules = [];
             state.message =  "No se pudo borrar la información, porque no encontramos el ID."
         })
     },

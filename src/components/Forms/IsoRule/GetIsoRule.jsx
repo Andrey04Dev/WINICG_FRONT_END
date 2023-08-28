@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import Table from '../../common/Table'
 import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import { Modal } from '../../common/Modal';
 import FormIsoRuleUpdate from './FormIsoRuleUpdate';
 
 const GetIsoRule = () => {
-  const arrayHeaderRiesgo = ["idrole", "role", "createdate", "updatedate"];
+  const arrayHeaderRiesgo = ["idrule", "certification","audits","namerule", "coderule","rulE_DESCRIPTION", "createdate", "updatedate"];
   const location =  useLocation()
   const {id} = useParams()
   const dispatch = useDispatch();
@@ -40,15 +40,17 @@ const GetIsoRule = () => {
   return (
     <div>
       {location.pathname && location.pathname === "/isoRule" ? (
-      <><Table
+      <Fragment>
+        {isoRules === "" ?null: (<ButtonLink name={"Agregar Norma ISO"}  className="btn btn-success mt-3 float-end" to={"/isoRule/addIsoRule"} />)}
+        <Table
           title={"Lista de las Norma ISO"}
           data={isoRules ? isoRules : ""}
           arrayHeader={arrayHeaderRiesgo}
           handleUpdate={handleOpenUpdateForm}
           handleDelete={handleOpenDeleteForm}
           addRoute={"addIsoRule"}
-          updateRoute={"/"}
-          deleteRoute={"/"} /><Modal
+          updateRoute={"updateIsoRule/"}
+          deleteRoute={"deleteIsoRule/"} /><Modal
             showModal={setshowModalupdateIsoRule}
             title={"Actualizar regla"}
             onClose={handleCloseModalUpdate}
@@ -60,7 +62,8 @@ const GetIsoRule = () => {
               footer={<><ButtonLink className={"btn btn-primary"} to={""} name={"Actualizar"} /><Button className={"btn btn-danger"} onClick={handleCloseModalDelete} children={"Cancelar"} /></>}
             >
             <p>¿Desea el eliminar la norma ISO con el{id}?</p>
-          </Modal></>
+          </Modal>
+          </Fragment>
       ) : (
         <Outlet />
       )}

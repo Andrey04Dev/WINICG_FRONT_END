@@ -1,2 +1,1 @@
 C:\Users\andre\Documents\Programming\WINICG\reactapp\obj\Debug\reactapp.esproj.CoreCompileInputs.cache
-C:\Users\andre\Documents\Programming\WINICG\reactapp\obj\Debug\reactapp.esproj.SuggestedBindingRedirects.cache

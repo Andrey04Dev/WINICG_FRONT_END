@@ -1,9 +1,10 @@
+import axios from 'axios';
 import {http} from './http-content'
 
 const GetAllUser = async () => {
     try {
       const res = await http.get("/User");
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -11,8 +12,8 @@ const GetAllUser = async () => {
   
   const GetUserById = async (id) => {
     try {
-      const res = await http.get("/User", id);
-      return res;
+      const res = await http.get(`/User/${id}`);
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -20,17 +21,17 @@ const GetAllUser = async () => {
   
   const AddUser = async (data) => {
     try {
-      const res = await http.add("/User/addUser", data);
-      return res;
+      const res = await http.post("/User/addUser", data);
+      return res.data;
     } catch (error) {
       return error;
     }
   };
   
-  const UpdateUser = async (data, id) => {
+  const UpdateUser = async (data,id) => {
     try {
-      const res = await http.put(`/User/updateUser/${id}`, data);
-      return res;
+      const res = await axios.put(`https://localhost:7128/api/User/updateUser/${id}`, data);
+      return res.data;
     } catch (error) {
       return error;
     }
@@ -39,7 +40,7 @@ const GetAllUser = async () => {
   const DeleteUser = async (id) => {
     try {
       const res = await http.delete(`/User/deleteUser/${id}`);
-      return res;
+      return res.data;
     } catch (error) {
       return error;
     }
