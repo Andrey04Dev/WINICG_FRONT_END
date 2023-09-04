@@ -12,6 +12,7 @@ import { Modal } from "../../common/Modal";
 import Spinner from "../../common/Spinner";
 import { AddUser, GetAllUser } from "../../../redux/userSlice";
 import { ButtonLink } from "../../common/Button";
+import { GetAllPositions } from "../../../redux/positionSlice";
 
 const FormUserAdd = () => {
   //Inicializacion de variables
@@ -21,6 +22,7 @@ const FormUserAdd = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(ValidationUser) });
   const {Roles} =  useSelector(state=> state.roles)
+  const {Positions} =  useSelector(state=> state.position)
   const {loading, success, message} =  useSelector(state=> state.users)
   const dispatch =  useDispatch()
   const [showModalAddUser, setShowModalAddUser] = useState(false)
@@ -28,6 +30,7 @@ const FormUserAdd = () => {
   //Funcion para agregar los usuarios
   const handleAddUser = (data) => {
     dispatch(AddUser(data))
+    console.log(data)
     setShowModalAddUser(true)
   };
 
@@ -35,6 +38,7 @@ const FormUserAdd = () => {
   const initialization = useCallback(
     () => {
       dispatch(GetAllRoles())
+      dispatch(GetAllPositions())
     },
     [dispatch],
   )
@@ -66,6 +70,7 @@ const FormUserAdd = () => {
       onSubmit={handleAddUser}
     >
       <Select label={"Rol"} name={"idRole"} options={Roles} error={errors?.idRole?.message}/>
+      <Select label={"Posición"} name={"idPosition"} options={Positions} error={errors?.idPosition?.message}/>
       <Input type={"text"} label={"Cedula"} placeholder={"Cedula"} name={"cedula"} error={errors?.cedula?.message} />
       <Input type={"text"} label={"Nombre completo"} placeholder={"Nombre completo"} name={"fullname"} error={errors?.fullname?.message} />
       <Input type={"email"} label={"Correo"} placeholder={"Correo"} name={"email"} error={errors?.email?.message} />

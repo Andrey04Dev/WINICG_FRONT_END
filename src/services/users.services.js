@@ -45,6 +45,27 @@ const GetAllUser = async () => {
       return error;
     }
   };
+
+  const LoginUser = async(data)=>{
+    try {
+      const res =  await http.post("/User/login",data)
+      sessionStorage.setItem("userLogin", JSON.stringify(res.data))
+      return res.data
+    } catch (error) {
+      return error
+    }
+  }
+
+const LogoutUser = async()=>{
+  try {
+    sessionStorage.removeItem("userLogin")
+    return "Te vas a desconectar del sistema"
+  } catch (error) {
+    return error
+  }
+}
+
+
   
   const UserService = {
     GetAllUser,
@@ -52,6 +73,8 @@ const GetAllUser = async () => {
     AddUser,
     UpdateUser,
     DeleteUser,
+    LoginUser,
+    LogoutUser
   };
   
   export default UserService

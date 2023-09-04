@@ -64,7 +64,7 @@ const DeleteRiskSeleted = () => {
         <Modal
             size={"modal-dialog-centered"}
             showModal={setshowModaldeleteRisk}
-            title={"Eliminar Norma ISO"}
+            title={"Eliminar riesgo"}
             onClose={handleOnCloseModalRisk}
             footer={
               <>

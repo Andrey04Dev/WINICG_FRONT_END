@@ -1,19 +1,24 @@
-import React from 'react'
-import Navbar from '../common/Navbar'
-import GetAudit from '../Forms/Audit/GetAudit'
-import FormAuditAdd from '../Forms/Audit/FormAuditAdd'
-import GetIsoRule from '../Forms/IsoRule/GetIsoRule'
-import FormIsoRuleAdd from '../Forms/IsoRule/FormIsoRuleAdd'
+import React, { Fragment } from 'react'
+import LoginForm from '../Forms/Login/LoginForm'
 
 const Home = () => {
+  //
+
+  // const handleReduceMenu = () => {
+  //   setReduceMenu(!reduceMenu);
+  // };
   return (
-      <div className='row vw-100'>
-        <div className="col-md-2">
-        <Navbar/>
-        </div>
-        <div className="col-md-10">
-        </div>
-    </div>
+     <Fragment>
+       <LoginForm/>
+     </Fragment>
+    //    <div className='row '>
+    //      <div className={reduceMenu ? "width_menu col-1" : "container_menu col-3"}>
+    //      <Navbar onClick={handleReduceMenu} show={reduceMenu}/>
+    //      </div>
+    //      <div className="col-md-9">
+    //       <Outlet/>
+    //      </div>
+    //  </div>
   )
 }
 

@@ -31,15 +31,15 @@ export const ButtonLink = ({ className, to, name, children, onClick}) => {
     );
   };
 
-  export const ButtonIcon = ({ icon, title, onClick, className }) => {
+  export const ButtonIcon = ({ icon, title, onClick, className, spin,size,transform,classnNameIcon }) => {
     return (
       <button onClick={onClick} className={className}>
         <Icon
-          icon={icon.icon}
-          className={icon.className}
-          transform={icon.transform}
-          spin={icon.spin}
-          size={icon.size}
+          icon={icon}
+          className={classnNameIcon}
+          transform={transform}
+          spin={spin}
+          size={size}
         />
         {title}
       </button>

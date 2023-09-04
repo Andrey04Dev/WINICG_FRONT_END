@@ -1,2 +1,177 @@
-@import"_menu.scss";
-@import"_modal.scss";
+//Modal
+.modal{
+    background-color: rgb(0,0,0) !important;
+    background-color: rgba(0,0,0,0.4) !important;
+}
+
+//Menu de navegacion 
+.container_menu{
+    -webkit-animation: openMenu ease-out 0.6s ;
+            animation: openMenu ease-out 0.6s ;
+}
+.width_menu{
+    width: 25%;
+    -webkit-animation: closeMenu ease-out 0.6s ;
+            animation: closeMenu ease-out 0.6s ;
+}
+.navbar {
+    width: 100% !important;
+    height: 100vh !important;
+  }
+.navbar,
+.navbar-collapse {
+  flex-direction: column !important;
+}
+.navbar-expand-lg .navbar-nav {
+  flex-direction: column !important;
+}
+.navbar .container-fluid, 
+.navbar-expand-lg .navbar-collapse, 
+.navbar-expand-lg .navbar-nav{
+  flex-direction: column !important;
+  align-items: flex-start !important;
+}
+.width_col{
+  flex: 5%;
+}
+
+@-webkit-keyframes openMenu {
+    from {
+      width: 10%;
+    }
+    to {
+        width: 25%;
+    }
+  }
+
+@keyframes openMenu {
+    from {
+      width: 10%;
+    }
+    to {
+        width: 25%;
+    }
+  }
+
+  @-webkit-keyframes closeMenu {
+    from {
+      width: 25%;
+    }
+    to {
+        width: 10%;
+    }
+  }
+
+  @keyframes closeMenu {
+    from {
+      width: 25%;
+    }
+    to {
+        width: 10%;
+    }
+  }
+//Formulario 
+.form{
+    width: 25rem;
+}
+
+
+@media only screen and (min-width > 900px){
+    #containerMenu{
+        display: flex !important;
+        justify-content: start !important;
+        align-items: start !important;
+    }
+    #btnHamburger{
+        top: 10% !important;
+        position: absolute !important;
+        padding: 0.5rem;
+    }
+    .container_menu{
+        -webkit-animation: openMenu ease-out 0.6s ;
+                animation: openMenu ease-out 0.6s ;
+        position: absolute;
+        background-color: white;
+        .navbar{
+            display: block !important;
+        }
+        #containerMenu{
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+        }
+    }
+   .navbar{
+    display: none !important;
+   }
+   
+}
+
+@media only screen and (max-width:767px){
+  #containerMenu{
+      display: flex !important;
+      justify-content: start !important;
+      align-items: start !important;
+  }
+  #btnHamburger{
+      top: 10% !important;
+      position: absolute !important;
+      padding: 0.5rem;
+  }
+  .container_menu{
+      -webkit-animation: openMenu ease-out 0.6s ;
+              animation: openMenu ease-out 0.6s ;
+      position: absolute;
+      background-color: white;
+      .navbar{
+          display: block !important;
+      }
+      #containerMenu{
+          display: flex !important;
+          justify-content: space-between !important;
+          align-items: center !important;
+      }
+  }
+ .navbar{
+  display: none !important;
+ }
+ //Esto  me puede afectar otras columnas
+ .col-3{
+  width: 100% !important;
+ }
+ @-webkit-keyframes openMenu {
+  from {
+    width: 10%;
+  }
+  to {
+      width: 100%;
+  }
+}
+
+@keyframes openMenu {
+  from {
+    width: 10%;
+  }
+  to {
+      width: 100%;
+  }
+}
+
+@-webkit-keyframes closeMenu {
+  from {
+    width: 100%;
+  }
+  to {
+      width: 10%;
+  }
+}
+
+@keyframes closeMenu {
+  from {
+    width: 100%;
+  }
+  to {
+      width: 10%;
+  }
+}
+}

@@ -3,7 +3,7 @@ import {http} from './http-content'
 const GetAllPosition = async () => {
     try {
       const res = await http.get("/Position");
-      console.log("Lo que trae la data en el axios", res.data)
+      console.log("En el servicio", res.data)
       return res.data;
     } catch (error) {
       return error;
@@ -21,7 +21,6 @@ const GetAllPosition = async () => {
   
   const AddPosition = async (data) => {
     try {
-      console.log("ENtrada axio de Position", data)
       const res = await http.post("/Position/addPosition", data);
       return res.data;
     } catch (error) {

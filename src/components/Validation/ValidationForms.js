@@ -82,7 +82,7 @@ export const ValidationTasks = yup.object({
 
 export const ValidationUser = yup.object({
     idRole : yup.string().required("El campo es requerido"),
-    idposition : yup.string().required("El campo es requerido"),
+    idPosition : yup.string().required("El campo es requerido"),
     cedula: yup.string().required("El campo es requerido"),
     fullname: yup.string().required("El campo es requerido").matches(/^[ñA-Za-zéíÉÍ _]*[ñA-Za-zéíÉÍ][ñA-Za-zéíÉÍ _]*$/, "Solo ingrese letras"),
     email: yup.string().email("Esto no es un correo").required("El campo es requerido"),
@@ -90,8 +90,12 @@ export const ValidationUser = yup.object({
 })
 
 export const ValidationPosition = yup.object({
-    idposition : yup.string().required("El campo es requerido"),
     positionjob: yup.string().required("El campo es requerido").matches(/^[ñA-Za-zéíÉÍ _]*[ñA-Za-zéíÉÍ][ñA-Za-zéíÉÍ _]*$/, "Solo ingrese letras"),
     description: yup.string().required("El campo es requerido").matches(/^[ñA-Za-zéíÉÍ _]*[ñA-Za-zéíÉÍ][ñA-Za-zéíÉÍ _]*$/, "Solo ingrese letras"),
     area: yup.string().required("El campo es requerido").matches(/^[ñA-Za-zéíÉÍ _]*[ñA-Za-zéíÉÍ][ñA-Za-zéíÉÍ _]*$/, "Solo ingrese letras")
+})
+
+export const ValidationLogin = yup.object({
+    email: yup.string().required("El campo es requerido"),
+    password: yup.string().required("El campo es requerido")
 })

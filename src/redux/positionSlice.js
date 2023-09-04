@@ -42,8 +42,8 @@ export const UpdatePosition = createAsyncThunk(
     "Positions/updatePosition", 
     async(data, thunkAPI)=>{
         try {
-            const {idPosition} =  data
-            const res =  await PositionService.UpdatePosition(data, idPosition)
+            const {idposition} =  data
+            const res =  await PositionService.UpdatePosition(data, idposition)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -74,6 +74,7 @@ const PositionSlice = createSlice({
             state.Positions = null;
         })
         .addCase(GetAllPositions.fulfilled,(state, {payload}) => {
+            console.log("Pyaload getposition", payload)
             state.loading = false
             state.Positions = payload;
             state.success = true

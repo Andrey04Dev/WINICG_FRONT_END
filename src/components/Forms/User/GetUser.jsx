@@ -11,6 +11,7 @@ const GetUser = () => {
     "id",
     "fullname",
     "email",
+    "positionjob",
     "active",
     "rol",
     "createdate",

@@ -24,10 +24,10 @@ const GetRoles = () => {
     <Fragment>
       {location.pathname === "/roles" ? (
         <Fragment>
-          {Roles ? null : (
+          {Roles === "" ? null : (
             <ButtonLink
               name={"Agregar role"}
-              className="btn btn-success"
+              className="btn btn-success float-end mt-3"
               to={"/roles/addRoles"}
             />
           )}

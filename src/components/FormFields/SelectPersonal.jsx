@@ -24,10 +24,10 @@ const SelectPersonal = ({
               key={index}
               defaultValue={defaultValue}
               value={
-                value.fullname || value.namerule
+                value.fullname || value.namerule || value
               }
             >
-              {value.fullname || value.namerule}
+              {value.fullname || value.namerule || value}
             </option>
           ))}
       </select>

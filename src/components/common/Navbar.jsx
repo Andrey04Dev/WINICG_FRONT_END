@@ -2,85 +2,128 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logoCRAtesa from "../../assets/img/logo_crAtesa.png";
 import Icon from "./Icon";
+import { ButtonIcon } from "./Button";
+import { Tooltips } from "./Tooltips";
 
-const Navbar = () => {
+const Navbar = ({onClick, show}) => {
+  
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light w-100 me-5">
-      <Link className="navbar-brand h-50 d-flex align-items-center" to="#">
-          <img className="" src={logoCRAtesa} alt="Logo de Cr Atesa Software" />
+      <><div className="d-flex flex-column justify-content-center align-items-center mt-2" id="containerMenu" >
+      <Tooltips text={"Mostrar menu"} position={"right"} id="btnHamburger">
+        <ButtonIcon
+          icon={["fas", "bars"]}
+          className="btn btn-transparent opacity-75 "
+          onClick={onClick} />
+      </Tooltips>
+      <Link className="" to="/">
+        <img
+          className={show ? "d-none" : "mx-3"}
+          src={logoCRAtesa}
+          alt="Logo de Cr Atesa Software" />
       </Link>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-
-      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+    </div><nav className="navbar navbar-expand-lg navbar-expand-md navbar-expand-sm navbar-light bg-light me-5">
         <ul className="navbar-nav mr-auto">
-        <li className="nav-item" >
-            <Link className="nav-link" to="/audit">
-            <Icon className={"me-3"} icon={["fas", "user-tie"]}/>Auditoría
+          <li className="nav-item">
+            <Link className="nav-link d-flex" to="/audit">
+              <Tooltips text="Auditoría" position="right">
+                <Icon className={"mx-3"} icon={["fas", "user-tie"]} />
+              </Tooltips>
+              {/* <Tooltips text={"Auditoría"}></Tooltips> */}
+              {show ? "" : "Auditoría"}
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/certification">
-            <Icon className={"me-3"} icon={["fas", "certificate"]}/>Certificación
+            <Link className="nav-link d-flex" to="/certification">
+              <Tooltips text={"Certificación"} position="right">
+                <Icon className={"mx-3"} icon={["fas", "certificate"]} />
+              </Tooltips>
+              {show ? "" : "Certificación"}
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/company_position">
-            <Icon className={"me-3"} icon={["fas", "briefcase"]}/>Posición
+            <Link className="nav-link d-flex" to="/company_position">
+              <Tooltips text={"Posición"} position="right">
+                <Icon className={"mx-3"} icon={["fas", "briefcase"]} />
+              </Tooltips>
+              {show ? "" : "Posición"}
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/flag">
-            <Icon className={"me-3"} icon={["fas", "flag"]}/>Indicador
+            <Link className="nav-link d-flex" to="/flag">
+              <Tooltips text={"Indicador"} position="right">
+                <Icon className={"mx-3"} icon={["fas", "flag"]} />
+              </Tooltips>
+              {show ? "" : "Indicador"}
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/noAccordance">
-            <Icon className={"me-3"} icon={["fas", "file-circle-xmark"]}/>No conformidad
+            <Link className="nav-link d-flex" to="/noAccordance">
+              <Tooltips text={"No conformidad"} position="right">
+                <Icon className={"mx-3"} icon={["fas", "file-circle-xmark"]} />
+              </Tooltips>
+              {show ? "" : "No conformidad"}
             </Link>
           </li>
           <li className="nav-item active">
-            <Link className="nav-link" to="/isoRule">
-              <Icon className={"me-3"} icon={["fas", "ruler"]}/>Normas ISO 
+            <Link className="nav-link d-flex" to="/isoRule">
+              <Tooltips text={"Normas ISO"} position="right">
+                <Icon className={"mx-3"} icon={["fas", "ruler"]} />
+              </Tooltips>
+              {show ? "" : "Normas ISO"}
             </Link>
           </li>
           <li className="nav-item active">
-            <Link className="nav-link" to="/process">
-              <Icon className={"me-3"} icon={["fas", "arrow-trend-up"]}/>Procesos
+            <Link className="nav-link d-flex" to="/position">
+              <Tooltips text={"Posición"} position="right">
+                <Icon className={"mx-3"} icon={["fas", "user-tie"]} />
+              </Tooltips>
+              {show ? "" : "Posición"}
             </Link>
           </li>
           <li className="nav-item active">
-            <Link className="nav-link" to="/risks">
-              <Icon className={"me-3"} icon={["fas", "triangle-exclamation"]}/>Riesgos
+            <Link className="nav-link d-flex" to="/process">
+              <Tooltips text={"Procesos"} position="right">
+                <Icon className={"mx-3"} icon={["fas", "arrow-trend-up"]} />
+              </Tooltips>
+              {show ? "" : "Procesos"}
             </Link>
           </li>
           <li className="nav-item active">
-            <Link className="nav-link" to="/roles">
-              <Icon className={"me-3"} icon={["fas", "user-gear"]}/>Roles
+            <Link className="nav-link d-flex" to="/risks">
+              <Tooltips text={"Riesgos"} position="right">
+                <Icon
+                  className={"mx-3"}
+                  icon={["fas", "triangle-exclamation"]} />
+              </Tooltips>
+              {show ? "" : "Riesgos"}
             </Link>
           </li>
           <li className="nav-item active">
-            <Link className="nav-link" to="/tasks">
-              <Icon className={"me-3"} icon={["fas", "list-check"]}/>Tareas
+            <Link className="nav-link d-flex" to="/roles">
+              <Tooltips text={"Roles"} position="right">
+                <Icon className={"mx-3"} icon={["fas", "user-gear"]} />
+              </Tooltips>
+              {show ? "" : "Roles"}
             </Link>
           </li>
           <li className="nav-item active">
-            <Link className="nav-link" to="/users">
-              <Icon className={"me-3"} icon={["fas", "user"]}/>Usuarios
+            <Link className="nav-link d-flex" to="/tasks">
+              <Tooltips text={"Tareas"} position="right">
+                <Icon className={"mx-3"} icon={["fas", "list-check"]} />
+              </Tooltips>
+              {show ? "" : "Tareas"}
+            </Link>
+          </li>
+          <li className="nav-item active">
+            <Link className="nav-link d-flex" to="/users">
+              <Tooltips text={"Usuarios"} position="right">
+                <Icon className={"mx-3"} icon={["fas", "user"]} />
+              </Tooltips>
+              {show ? "" : "Usuarios"}
             </Link>
           </li>
         </ul>
-      </div>
-    </nav>
+      </nav></>
   );
 };
 

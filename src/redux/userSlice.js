@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import UserService from "../services/users.services";
 
-const user =   JSON.parse(localStorage.getItem('user') || "{}")
+const user =   JSON.parse(sessionStorage.getItem('userLogin') || "{}")
 
 export const GetAllUser = createAsyncThunk(
     "User/getAllUser", 
@@ -65,8 +65,32 @@ export const DeleteUser = createAsyncThunk(
     }
 )
 
-const initialState = user === ""
-? { isLoggedIn: true, user, loading: false, success: false, message : ""}
+export const LoginUser =  createAsyncThunk(
+    "User/loginuser",
+    async(data,thunkAPI)=>{
+        try {
+            const res =  await UserService.LoginUser(data)
+            return res
+        } catch (error) {
+            return error
+        }
+    }
+)
+
+export const LogoutUser =  createAsyncThunk(
+    "User/logoutUser",
+    async(data,thunkAPI)=>{
+        try {
+            const res =  await UserService.LogoutUser()
+            return res
+        } catch (error) {
+            return error
+        }
+    }
+)
+
+const initialState = user !== ""
+? { isLoggedIn: true, user, loading: false, success: false, message : "Bienvenido al sistema"}
 : { isLoggedIn: false, user: null, loading: false, success: false, message : "" };
 
 const UserSlice = createSlice({
@@ -161,6 +185,40 @@ const UserSlice = createSlice({
             state.user = null;
             state.isLoggedIn = false;
             state.message =  "No se pudo borrar la información, porque no encontramos el ID."
+        })
+        .addCase(LoginUser.pending, (state) => {
+            state.loading = true
+            state.isLoggedIn = false;
+            state.user = null;
+        })
+        .addCase(LoginUser.fulfilled,(state, {payload}) => {
+            state.loading = false
+            state.user = payload;
+            state.success = true
+            state.message = "Bienvenido al sistema WINICG"
+        })
+        .addCase(LoginUser.rejected, (state) => {
+            state.loading = false
+            state.user = null;
+            state.isLoggedIn = false;
+            state.message = "Las credenciales esta incorrectas"
+        })
+        .addCase(LogoutUser.pending, (state) => {
+            state.loading = true
+            state.isLoggedIn = false;
+            state.user = null;
+        })
+        .addCase(LogoutUser.fulfilled,(state, {payload}) => {
+            state.loading = false
+            state.user = payload;
+            state.success = true
+            state.message = "Gracias por utilizar el sismtema WINICG"
+        })
+        .addCase(LogoutUser.rejected, (state) => {
+            state.loading = false
+            state.user = null;
+            state.isLoggedIn = false;
+            state.message = "Ha ocurrido un incoveniento con el deslogueo de la información"
         })
     },
     reducers: {}
