@@ -13,6 +13,18 @@ export const GetAllRisk = createAsyncThunk(
     }
 )
 
+export const GetCountRisk = createAsyncThunk(
+    "Risk/getCountRisk", 
+    async(_, thunkAPI)=>{
+        try {
+            const res =  await RiskService.GetCountRisk()
+            return res
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+)
+
 export const GetRiskById = createAsyncThunk(
     "Risk/getRiskById", 
     async(id, thunkAPI)=>{
@@ -30,6 +42,7 @@ export const AddRisk = createAsyncThunk(
     async(data, thunkAPI)=>{
         try {
             const res =  await RiskService.AddRisk(data)
+            console.log("El resultado del createasynThunk", res)
             return res
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -83,6 +96,21 @@ const RiskSlice = createSlice({
             state.Risk = null;
             state.message = "La lista esta vacia"
         })
+        .addCase(GetCountRisk.pending, (state) => {
+            state.loading = true
+            state.Risk = null;
+        })
+        .addCase(GetCountRisk.fulfilled,(state, {payload}) => {
+            state.loading = false
+            state.Risk = payload;
+            state.success = true
+            state.message = "Su petición ha sido concedida."
+        })
+        .addCase(GetCountRisk.rejected, (state) => {
+            state.loading = false
+            state.Risk = null;
+            state.message = "La lista esta vacia"
+        })
         .addCase(GetRiskById.pending, (state) => {
             state.loading = true
             state.Risk = null;
@@ -99,6 +127,8 @@ const RiskSlice = createSlice({
             state.message = "No se pudo obtener la información."
         })
         .addCase(AddRisk.fulfilled,(state, {payload}) => {
+            state.loading = false
+            state.Risk = payload
             state.success = true
             state.message =  "El riesgo se ha agregado correctamente"
         })

@@ -13,6 +13,18 @@ export const GetAllPositions = createAsyncThunk(
     }
 )
 
+export const GetCountPositions = createAsyncThunk(
+    "Positions/getCountPositions", 
+    async(_, thunkAPI)=>{
+        try {
+            const res =  await PositionService.GetCountPosition()
+            return res
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+)
+
 export const GetPositionById = createAsyncThunk(
     "Positions/getPositionById", 
     async(id, thunkAPI)=>{
@@ -81,6 +93,22 @@ const PositionSlice = createSlice({
             state.message = "Su petición ha sido concedida."
         })
         .addCase(GetAllPositions.rejected, (state) => {
+            state.loading = false
+            state.Positions = [];
+            state.message = "La lista esta vacia"
+        })
+        .addCase(GetCountPositions.pending, (state) => {
+            state.loading = true
+            state.Positions = null;
+        })
+        .addCase(GetCountPositions.fulfilled,(state, {payload}) => {
+            console.log("Pyaload getposition", payload)
+            state.loading = false
+            state.Positions = payload;
+            state.success = true
+            state.message = "Su petición ha sido concedida."
+        })
+        .addCase(GetCountPositions.rejected, (state) => {
             state.loading = false
             state.Positions = [];
             state.message = "La lista esta vacia"

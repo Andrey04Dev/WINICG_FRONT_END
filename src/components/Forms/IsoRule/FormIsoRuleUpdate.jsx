@@ -14,6 +14,7 @@ import { useParams } from 'react-router-dom'
 import Spinner from '../../common/Spinner'
 import { Modal } from '../../common/Modal'
 import { ButtonLink } from '../../common/Button'
+import { AddHistorial } from '../../../redux/historialSlice'
 
 const FormIsoRuleUpdate = () => {
      //Inicializacion de variables
@@ -25,11 +26,13 @@ const FormIsoRuleUpdate = () => {
      const [showModalRule, setShowModalRule] = useState(false)
      const [GetIsoRule, setGetIsoRule] = useState()
      const {id} =  useParams()
- 
+     const userLogin = JSON.parse(sessionStorage.getItem("userLogin") || "") 
      //Agregando norma ISO
      const handleUpdateIsoRule = (data) =>{
       data.idrule = id
        dispatch(UpdateIsoRules(data))
+       const dataHistory = {idmodule:id,personchange:userLogin.name}
+    dispatch(AddHistorial(dataHistory))
        setShowModalRule(!showModalRule)
          console.log(data)
      }
@@ -37,7 +40,7 @@ const FormIsoRuleUpdate = () => {
      const initialstate =  useCallback(()=>{
        dispatch(GetAllCertification())
        dispatch(GetAllAudits())
-       dispatch(GetIsoRulesById(id)).unwrap().then(res=> setGetIsoRule(res))
+       dispatch(GetIsoRulesById(id)).unwrap().then(res=> setGetIsoRule(res[0]))
      }, [dispatch,id])
      //Obteniendo las normas ISO
      const reloadIsoRule = () =>{
@@ -64,7 +67,6 @@ const FormIsoRuleUpdate = () => {
       <Select error={errors.idCertification?.message} defaultValue={""} options={certification} name={"idCertification"} label={"Selecione la certificación"}></Select>
       <Select error={errors.idAudit?.message} defaultValue={""} options={audits} name={"idAudit"} label={"Selecione la auditoria"}></Select>
       <Input error={errors.nameRule?.message} defaultValue={GetIsoRule?.namerule || ""} type={"text"} name={"nameRule"} label={"Nombre de la norma ISO"} placeholder={"Nombre de la norma ISO"} />
-      <Input error={errors.codeRule?.message} defaultValue={GetIsoRule?.coderule || ""} type={"text"} name={"codeRule"} label={"Código de la auditoria"} placeholder={"Código de la norma ISO"} />
       <Textarea error={errors.rule_description?.message} defaultValue={GetIsoRule?.rulE_DESCRIPTION || ""} type={"text"} name={"rule_description"} label={"Descripción de la auditoría"} placeholder={"Descripción de la norma ISO"} />
     </Form><Modal
         size={"modal-dialog-centered"}

@@ -4,6 +4,7 @@ import Home from "../Pages/Home";
 import Spinner from "../common/Spinner";
 import PrivateRoute from "../common/PrivateRoute";
 import Dashboard from "../Pages/Dashboard";
+import { useSelector } from "react-redux";
 
 const RoutesWINICG = () => {
   //Lazy de la auditorias
@@ -64,6 +65,12 @@ const RoutesWINICG = () => {
   const DeleteNoAccordancePage = lazy(() =>
     import("../Pages/NoAccordannce/DeleteNoAccordancePAge")
   );
+  const AddFilesNoAccordancePage = lazy(() =>
+    import("../Pages/NoAccordannce/AddFilesNoAccordancePage")
+  );
+  const ShowFilesNoAccordancePage = lazy(() =>
+    import("../Pages/NoAccordannce/ShowFilesNoAccordancePage")
+  );
   //lista de ruta de posiciones
   const Positionpage = lazy(() => import("../Pages/Position/PositionPage"));
   const AddPositionPage = lazy(() =>
@@ -89,6 +96,9 @@ const RoutesWINICG = () => {
   const RisksPage = lazy(() => import("../Pages/Risks/RisksPage"));
   const UpdateRisksPage = lazy(() => import("../Pages/Risks/UpdateRiskPage"));
   const DeleteRisksPage = lazy(() => import("../Pages/Risks/DeleteRiskPage"));
+  const AddFilesRisksPage = lazy(() => import("../Pages/Risks/AddFilesPages"));
+  const ShowFilesRisksPage = lazy(() => import("../Pages/Risks/ShowFilesRiskPage"));
+  
   //Lista rutas de la pagina de roles
   const AddRolesPage = lazy(() => import("../Pages/Roles/AddRolePage"));
   const RolesPage = lazy(() => import("../Pages/Roles/RolesPage"));
@@ -174,6 +184,14 @@ const RoutesWINICG = () => {
                 path="deleteNoAccordance/:id"
                 element={<DeleteNoAccordancePage />}
               />
+              <Route
+                path="addFilesNoAccordance/:id"
+                element={<AddFilesNoAccordancePage />}
+              />
+              <Route
+                path="showFilesNoAccordance/:id"
+                element={<ShowFilesNoAccordancePage />}
+              />
             </Route>
             {/* Rutas de  pagina de agregar las posiciones] */}
             <Route path="/position" element={<Positionpage />}>
@@ -198,6 +216,8 @@ const RoutesWINICG = () => {
               <Route path="addRisks" element={<AddRisksPage />} />
               <Route path="updateRisks/:id" element={<UpdateRisksPage />} />
               <Route path="deleteRisks/:id" element={<DeleteRisksPage />} />
+              <Route path="addFilesRisks/:id" element={<AddFilesRisksPage />} />
+              <Route path="showFilesRisk/:id" element={<ShowFilesRisksPage />} />
             </Route>
             {/* Rutas de  pagina de agregar los roles] */}
             <Route path="/roles" element={<RolesPage />}>

@@ -14,26 +14,33 @@ import { useParams } from 'react-router-dom'
 import { Modal } from '../../common/Modal'
 import Spinner from '../../common/Spinner'
 import { ButtonLink } from '../../common/Button'
+import { GetAllPositions } from '../../../redux/positionSlice'
+import { AddHistorial } from '../../../redux/historialSlice'
 
 const FormProcessUpdate = () => {
     const {register, handleSubmit, formState:{errors} } =  useForm({resolver:yupResolver(ValidationProcess)})
     const {isoRules} = useSelector(state=> state.isoRule)
     const {user} = useSelector(state=> state.users)
     const {loading,message, success} = useSelector(state=> state.process)
+    const {Positions} = useSelector(state=> state.position)
     const dispatch =  useDispatch()
     const {id} =  useParams()
     const [GetProcessSelected, setGetProcessSelected] = useState()
-    const [setshowModalProcess, setSetshowModalProcess] = useState(false)
+     const userLogin = JSON.parse(sessionStorage.getItem("userLogin") || "") 
+     const [setshowModalProcess, setSetshowModalProcess] = useState(false)
 
     const handleAddProcess = (data) =>{
       data.idprocess = id
       dispatch(UpdateProcess(data))
+      const dataHistory = {idmodule:id,personchange:userLogin.name}
+    dispatch(AddHistorial(dataHistory))
       setSetshowModalProcess(true)
         console.log(data)
     }
     const initialstate =  useCallback(()=>{
       dispatch(GetAllIsoRules())
       dispatch(GetAllUser())
+      dispatch(GetAllPositions())
       dispatch(GetProcessById(id)).unwrap().then(res=> setGetProcessSelected(res))
     }, [dispatch,id])
     //Obteniendo las normas ISO
@@ -60,10 +67,9 @@ const FormProcessUpdate = () => {
     >
         <Input type={"text"} defaultValue={id || ""} name={"idprocess"}label={"ID del proceso"} placeholder={"ID del proceso"} disabled={true} readOnly={true}/>
         <Select error={errors.idRule?.message} options={isoRules} name={"idRule"}  label={"Selecione la norma ISO"}></Select>
-        <Input error={errors?.codeProcess?.message} defaultValue={GetProcessSelected?.codeprocess || ""} name={"codeProcess"}/>
         <Input error={errors.processname?.message} defaultValue={GetProcessSelected?.processname || ""} type={"text"} name={"processname"}label={"Escriba el título del proceso"} placeholder={"Escriba el título del proceso"}/>
         <SelectPersonal error={errors.charge_Person?.message} options={user} name={"charge_Person"}  label={"Selecione la persona encargada"}></SelectPersonal>
-        <Input defaultValue={GetProcessSelected?.rolE_INVOLVES || ""} error={errors.role_Involves?.message}name={"role_Involves"}  label={"Selecione el rol implicado"}></Input>
+        <Select error={errors.role_Involves?.message} name={"role_Involves"}  label={"Selecione el rol implicado"} options={Positions}></Select>
     </Form>
     <Modal
         size={"modal-dialog-centered"}

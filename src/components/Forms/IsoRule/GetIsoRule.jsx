@@ -8,7 +8,7 @@ import { Modal } from '../../common/Modal';
 import FormIsoRuleUpdate from './FormIsoRuleUpdate';
 
 const GetIsoRule = () => {
-  const arrayHeaderRiesgo = ["idrule", "certification","audits","namerule", "coderule","rulE_DESCRIPTION", "createdate", "updatedate"];
+  const arrayHeaderRiesgo = ["idrule", "certification","audits","namerule","rulE_DESCRIPTION","personchange", "createdate", "updatedate"];
   const location =  useLocation()
   const {id} = useParams()
   const dispatch = useDispatch();

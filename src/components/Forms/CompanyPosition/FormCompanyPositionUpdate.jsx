@@ -14,6 +14,7 @@ import { GetAllUser } from '../../../redux/userSlice'
 import { Modal } from '../../common/Modal'
 import Spinner from '../../common/Spinner'
 import { ButtonLink } from '../../common/Button'
+import { AddHistorial } from '../../../redux/historialSlice'
 
 const FormCompanyPositionUpdate = () => {
     const {register, handleSubmit, formState:{errors} } =  useForm({resolver:yupResolver(ValidationCompanyPosition)})
@@ -24,10 +25,13 @@ const FormCompanyPositionUpdate = () => {
     const [showModalCompany, setShowModalCompany] = useState(false)
     const [getInforCompany, setGetInforCompany] = useState()
     const {id} =  useParams()
+    const userLogin = JSON.parse(sessionStorage.getItem("userLogin") || "") 
 
     const handleUpdateCompanyPosition = (data) =>{
       data.idcomapnY_POSITION = id
       dispatch(UpdateCompanyPosition(id))
+      const dataHistory = {idmodule:id,personchange:userLogin.name}
+    dispatch(AddHistorial(dataHistory))
       setShowModalCompany(true)
         console.log(data)
     }

@@ -8,7 +8,7 @@ import { GetAllRisk } from "../../../redux/risksSlice";
 import { ButtonLink } from "../../common/Button";
 
 const GetRisks = () => {
-  const arrayHeaderRiesgo = ["idrisks", "namerule", "origen","namerisk","consequense",'source_risk',"createdate", "updatedate"];
+  const arrayHeaderRiesgo = ["idrisks", "namerule", "origen","namerisk","consequense",'source_risk',"state", "quantity","createdate", "updatedate"];
   const location = useLocation();
   const dispatch = useDispatch();
   const { Risk } = useSelector((state) => state.risk);
@@ -28,7 +28,7 @@ const GetRisks = () => {
         {Risk=== "" ? null : (
             <ButtonLink
               name={"Agregar riesgo"}
-              className="btn btn-success float-end"
+              className="btn btn-success float-end my-3"
               to={"/risks/addRisks"}
             />
           )}
@@ -39,6 +39,8 @@ const GetRisks = () => {
             addRoute={"addRisks"}
             updateRoute={"updateRisks/"}
             deleteRoute={"deleteRisks/"}
+            uploadFiles={"addFilesRisks/"}
+            showFiles={"showFilesRisk/"}
           />
         </>
       ) : (

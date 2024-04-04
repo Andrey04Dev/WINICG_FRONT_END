@@ -10,6 +10,7 @@ import { GetAllRoles, GetRolesById, UpdateRoles } from "../../../redux/rolesSlic
 import { ButtonLink } from "../../common/Button";
 import { Modal } from "../../common/Modal";
 import Spinner from "../../common/Spinner";
+import { AddHistorial } from "../../../redux/historialSlice";
 
 const FormRolesUpdate = () => {
   const {
@@ -22,8 +23,12 @@ const FormRolesUpdate = () => {
   const [rolesGet, setRolesGet] = useState();
   const [showModalUpdateRole, setshowModalUpdateRole] = useState(false);
   const { id } = useParams();
+  const userLogin = JSON.parse(sessionStorage.getItem("userLogin") || "") 
+
   const handleUpdateRole = (data) => {
     const {role} =  data
+    const dataHistory = {idmodule:id,personchange:userLogin.name}
+    dispatch(AddHistorial(dataHistory))
    dispatch(UpdateRoles({id,role}))
    setshowModalUpdateRole(true)
   };

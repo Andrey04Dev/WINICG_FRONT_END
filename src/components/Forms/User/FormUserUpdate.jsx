@@ -12,6 +12,7 @@ import Spinner from "../../common/Spinner";
 import { ButtonLink } from "../../common/Button";
 import { GetAllRoles } from "../../../redux/rolesSlice";
 import Form from "../../FormFields/Form";
+import { AddHistorial } from "../../../redux/historialSlice";
 
 const FormUserUpdate = () => {
   //Inicializacion de variables
@@ -22,16 +23,20 @@ const FormUserUpdate = () => {
   } = useForm({ resolver: yupResolver(ValidationUser) });
   const { Roles } = useSelector((state) => state.roles);
   const { loading, success, message } = useSelector((state) => state.users);
+  const {Positions} =  useSelector(state=> state.position)
   const dispatch = useDispatch();
   const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
   const [updateUsers, setUpdateUsers] = useState()
   const {id} =  useParams()
   const arrayEstado = [{id:true,value:"Activo"},{id:false, value:"Inactivo"}]
+  const userLogin = JSON.parse(sessionStorage.getItem("userLogin") || "") 
 
   //Funcion para agregar los usuarios
   const handleAddUser = (data) => {
     data.iduser =  id
     data.active  = JSON.parse(data.active )
+    const dataHistory = {idmodule:id,personchange:userLogin.name}
+    dispatch(AddHistorial(dataHistory))
     dispatch(UpdateUser(data));
     setShowModalUpdateUser(true);
   };
@@ -82,6 +87,7 @@ const FormUserUpdate = () => {
           error={errors?.idRole?.message}
           defaultValue={updateUsers?.idRole || ""}
         />
+        <Select label={"Posición"} name={"idPosition"} options={Positions} error={errors?.idPosition?.message}/>
         <Input
           type={"text"}
           label={"Cedula"}

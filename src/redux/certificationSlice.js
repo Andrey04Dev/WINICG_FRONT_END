@@ -13,6 +13,18 @@ export const GetAllCertification = createAsyncThunk(
     }
 )
 
+export const GetCountCertification = createAsyncThunk(
+    "Certification/getCountCertification", 
+    async(_, thunkAPI)=>{
+        try {
+            const res =  await CertificationService.GetCountCertification()
+            return res
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+)
+
 export const GetCertificationById = createAsyncThunk(
     "Certification/getCertificationById", 
     async(id, thunkAPI)=>{
@@ -85,6 +97,21 @@ const CertificationSlice = createSlice({
             state.certification = [];
             state.message = "La lista esta vacia"
         })
+        .addCase(GetCountCertification.pending, (state) => {
+            state.loading = true
+            state.certification = null;
+        })
+        .addCase(GetCountCertification.fulfilled,(state, {payload}) => {
+            state.loading = false
+            state.certification = payload;
+            state.success = true
+            state.message = "Su petición ha sido concedida."
+        })
+        .addCase(GetCountCertification.rejected, (state) => {
+            state.loading = false
+            state.certification = [];
+            state.message = "La lista esta vacia"
+        })
         .addCase(GetCertificationById.pending, (state) => {
             state.loading = true
             state.certification = null;
@@ -106,9 +133,9 @@ const CertificationSlice = createSlice({
             state.loading =  true
         })
         .addCase(AddCertification.fulfilled,(state, {payload}) => {
-            console.log("Entro al createslice",payload );
             state.success = true
             state.message =  "La certificación se ha agregado correctamente"
+            state.loading =  false
         })
         .addCase(AddCertification.rejected, (state) => {
             state.success = false

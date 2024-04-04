@@ -8,6 +8,15 @@ const GetAllProcess = async () => {
       return error;
     }
   };
+
+  const GetCountProcess = async () => {
+    try {
+      const res = await http.get("/Process/getCountProcess");
+      return res.data;
+    } catch (error) {
+      return error;
+    }
+  };
   
   const GetProcessById = async (id) => {
     try {
@@ -52,6 +61,7 @@ const GetAllProcess = async () => {
     AddProcess,
     UpdateProcess,
     DeleteProcess,
+    GetCountProcess
   };
   
   export default ProcessService

@@ -16,6 +16,19 @@ export const GetAllUser = createAsyncThunk(
     }
 )
 
+export const GetCountUser = createAsyncThunk(
+    "User/getCountUser", 
+    async(_, thunkAPI)=>{
+        try {
+            const res =  await UserService.GetCountUser()
+            console.log("Devolviendo del slice de usuarios", res)
+            return res
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+)
+
 export const GetUserById = createAsyncThunk(
     "User/getUserById", 
     async(id, thunkAPI)=>{
@@ -109,6 +122,23 @@ const UserSlice = createSlice({
             state.message = "Su petición ha sido concedida."
         })
         .addCase(GetAllUser.rejected, (state) => {
+            state.loading = false
+            state.user = null;
+            state.isLoggedIn = false;
+            state.message = "La lista esta vacia"
+        })
+        .addCase(GetCountUser.pending, (state) => {
+            state.loading = true
+            state.isLoggedIn = false;
+            state.user = null;
+        })
+        .addCase(GetCountUser.fulfilled,(state, {payload}) => {
+            state.loading = false
+            state.user = payload;
+            state.success = true
+            state.message = "Su petición ha sido concedida."
+        })
+        .addCase(GetCountUser.rejected, (state) => {
             state.loading = false
             state.user = null;
             state.isLoggedIn = false;

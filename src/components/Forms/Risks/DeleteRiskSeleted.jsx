@@ -54,7 +54,7 @@ const DeleteRiskSeleted = () => {
             <p><b>Título del riesgo:</b> {deleteIsoRiskInfo?.namerisks}</p>
             <p><b>Consecuencia:</b> {deleteIsoRiskInfo?.consequense }</p>
             <p><b>Fuente:</b> {deleteIsoRiskInfo?.sourcE_RISK }</p>
-            <p><b>Estado:</b> {deleteIsoRiskInfo?.state }</p>
+            <p><b>Estado:</b> {deleteIsoRiskInfo?.state === true? "Mitigado":"No mitigado" }</p>
             </Fragment>
             <div className='d-flex '>
             <Button className={ "btn btn-primary me-3"} children={"Eliminar"} onClick={handleOpenModalRisk}/>

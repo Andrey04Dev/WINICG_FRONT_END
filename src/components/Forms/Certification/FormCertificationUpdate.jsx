@@ -10,6 +10,7 @@ import { GetAllCertification, GetCertificationById, UpdateCertification  } from 
 import { Modal } from '../../common/Modal'
 import Spinner from '../../common/Spinner'
 import { ButtonLink } from '../../common/Button'
+import { AddHistorial } from '../../../redux/historialSlice'
 
 const FormCertificationUpdate = () => {
     const {register, handleSubmit, formState:{errors} } =  useForm({resolver:yupResolver(ValidationCertification)})
@@ -18,11 +19,13 @@ const FormCertificationUpdate = () => {
     const [showModalRule, setShowModalRule] = useState(false)
     const [GetCertification, setGetCertification] = useState()
     const {id} =  useParams()
-
+    const userLogin = JSON.parse(sessionStorage.getItem("userLogin") || "") 
 
     const handleUpdateCertification = (data) =>{
       data.idcertification =  id
         dispatch(UpdateCertification(data))
+        const dataHistory = {idmodule:id,personchange:userLogin.name}
+    dispatch(AddHistorial(dataHistory))
         setShowModalRule(true)
         console.log(data)
     }

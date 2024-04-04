@@ -13,6 +13,18 @@ export const GetAllIsoRules = createAsyncThunk(
         }
     }
 )
+export const GetCountIsoRules = createAsyncThunk(
+    "isoRules/getCountisoRules", 
+    async(_, thunkAPI)=>{
+        try {
+            const res =  await IsoRuleService.GetCountIsoRule()
+            console.log("Site", res)
+            return res
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+)
 
 export const GetIsoRulesById = createAsyncThunk(
     "isoRules/getIsoRulesById", 
@@ -80,6 +92,21 @@ const IsoRulesSlice = createSlice({
             state.message = "Su petición ha sido concedida."
         })
         .addCase(GetAllIsoRules.rejected, (state) => {
+            state.loading = false
+            state.isoRules = [];
+            state.message = "La lista esta vacia"
+        })
+        .addCase(GetCountIsoRules.pending, (state) => {
+            state.loading = true
+            state.isoRules = null;
+        })
+        .addCase(GetCountIsoRules.fulfilled,(state, {payload}) => {
+            state.loading = false
+            state.isoRules = payload;
+            state.success = true
+            state.message = "Su petición ha sido concedida."
+        })
+        .addCase(GetCountIsoRules.rejected, (state) => {
             state.loading = false
             state.isoRules = [];
             state.message = "La lista esta vacia"

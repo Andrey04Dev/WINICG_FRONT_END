@@ -10,6 +10,15 @@ const GetAllPosition = async () => {
     }
   };
   
+  const GetCountPosition = async () => {
+    try {
+      const res = await http.get("/Position/getCountPosition");
+      console.log("En el servicio", res.data)
+      return res.data;
+    } catch (error) {
+      return error;
+    }
+  };
   const GetPositionById = async (id) => {
     try {
       const res = await http.get(`/Position/${id}`);
@@ -52,6 +61,7 @@ const GetAllPosition = async () => {
     AddPosition,
     UpdatePosition,
     DeletePosition,
+    GetCountPosition
   };
   
   export default PositionService

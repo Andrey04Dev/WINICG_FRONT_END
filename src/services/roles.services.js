@@ -10,6 +10,16 @@ const GetAllRoles = async () => {
     }
   };
   
+  const GetCountRoles = async () => {
+    try {
+      const res = await http.get("/Roles/getCountRoles");
+      console.log("Rest api de servicio de roles", res.data)
+      return res.data;
+    } catch (error) {
+      return error;
+    }
+  };
+
   const GetRolesById = async (id) => {
     try {
       const res = await http.get(`/Roles/${id}`, );
@@ -52,6 +62,7 @@ const GetAllRoles = async () => {
     AddRoles,
     UpdateRoles,
     DeleteRoles,
+    GetCountRoles
   };
   
   export default RolesService

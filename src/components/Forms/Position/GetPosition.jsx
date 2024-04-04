@@ -4,9 +4,11 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { GetAllPositions } from '../../../redux/positionSlice';
 import { ButtonLink } from '../../common/Button';
 import Table from '../../common/Table';
+import TableExample from '../../common/TableExample';
+import { ColumnPosition } from '../../data/ColumnPosition';
 
 const GetPosition = () => {
-    const arrayHeaderPosition = ["idposition", "positionjob", "description","area","createdate", "updatedate"];
+    const arrayHeaderPosition = ["idposition", "positionjob", "description","area","personchange","createdate", "updatedate"];
   const location = useLocation();
   const dispatch = useDispatch();
   const { Positions } = useSelector((state) => state.position);
@@ -20,29 +22,22 @@ const GetPosition = () => {
     return () => {};
   }, [initialState]);
   return (
-    <div>
+    <>
       {location.pathname && location.pathname === "/position" ? (
         <>
         {Positions=== "" ? null : (
             <ButtonLink
               name={"Agregar posición"}
-              className="btn btn-success float-end"
+              className="btn btn-success float-end my-3"
               to={"/position/addPosition"}
             />
           )}
-          <Table
-            title={"Lista de pociones"}
-            data={Positions}
-            arrayHeader={arrayHeaderPosition}
-            addRoute={"addPosition"}
-            updateRoute={"updatePosition/"}
-            deleteRoute={"deletePosition/"}
-          />
+          <TableExample data={Positions} column={ColumnPosition}/>
         </>
       ) : (
         <Outlet />
       )}
-    </div>
+    </>
   )
 }
 

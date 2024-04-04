@@ -13,11 +13,13 @@ import Spinner from '../../common/Spinner'
 import { ButtonLink } from '../../common/Button'
 import SelectPersonal from '../../FormFields/SelectPersonal'
 import { GetAllUser } from '../../../redux/userSlice'
+import { GetAllPositions } from '../../../redux/positionSlice'
 
 const FormProcessAdd = () => {
     const {register, handleSubmit, formState:{errors} } =  useForm({resolver:yupResolver(ValidationProcess)})
     const {isoRules} = useSelector(state=> state.isoRule)
     const {user} = useSelector(state=> state.users)
+    const {Positions} = useSelector(state=> state.position)
     const {loading,message, success} = useSelector(state=> state.process)
     const dispatch =  useDispatch()
     const [showModalProcess, setShowModalProcess] = useState(false)
@@ -30,6 +32,7 @@ const FormProcessAdd = () => {
     const initialstate =  useCallback(()=>{
       dispatch(GetAllIsoRules())
       dispatch(GetAllUser())
+      dispatch(GetAllPositions())
     }, [dispatch])
     //Obteniendo las normas ISO
     const reloadProcess = () =>{
@@ -54,10 +57,9 @@ const FormProcessAdd = () => {
     onSubmit={handleAddProcess}
     >
         <Select error={errors.idRule?.message} options={isoRules} name={"idRule"}  label={"Selecione la norma ISO"}></Select>
-        <Input error={errors.codeProcess?.message} type={"text"} name={"codeProcess"}label={"Escriba el código del proceso"} placeholder={"Escriba el código del proceso"}/>
         <Input error={errors.processname?.message} type={"text"} name={"processname"}label={"Escriba el título del proceso"} placeholder={"Escriba el título del proceso"}/>
         <SelectPersonal error={errors.charge_Person?.message} options={user} name={"charge_Person"}  label={"Selecione la persona encargada"}></SelectPersonal>
-        <Input error={errors.role_Involves?.message} name={"role_Involves"}  label={"Selecione el rol implicado"}></Input>
+        <Select error={errors.role_Involves?.message} name={"role_Involves"}  label={"Selecione el rol implicado"} options={Positions}></Select>
     </Form>
     <Modal
     size={"modal-dialog-centered"}

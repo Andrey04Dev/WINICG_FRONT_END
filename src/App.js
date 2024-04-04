@@ -12,7 +12,7 @@ import Navbar from "./components/common/Navbar";
 import RoutesWINICG from "./components/Routes/RoutesWINICG";
 const App = () => {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <RoutesWINICG/>
     </div>
   );

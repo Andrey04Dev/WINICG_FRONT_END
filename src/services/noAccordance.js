@@ -9,6 +9,14 @@ const GetAllNoAccordance = async () => {
     }
   };
   
+  const GetCountNoAccordance = async () => {
+    try {
+      const res = await http.get("/NoAccordance/getCountNoAccordance");
+      return res.data;
+    } catch (error) {
+      return error;
+    }
+  };
   const GetNoAccordanceById = async (id) => {
     try {
       const res = await http.get(`/NoAccordance/${id}`);
@@ -51,6 +59,7 @@ const GetAllNoAccordance = async () => {
     AddNoAccordance,
     UpdateNoAccordance,
     DeleteNoAccordance,
+    GetCountNoAccordance
   };
   
   export default NoAccordanceService

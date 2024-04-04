@@ -3,13 +3,15 @@ import React, { Fragment } from 'react'
 import { ButtonLink } from './Button'
 import Icon from './Icon'
 import {Tooltips} from './Tooltips'
+import { useLocation } from 'react-router-dom'
 
-const Table = ({arrayHeader, data,title,  handleDelete, deleteRoute,updateRoute,addRoute}) => {
+const Table = ({arrayHeader, data,title,  handleDelete, deleteRoute,updateRoute,addRoute, uploadFiles,showFiles}) => {
   const userLogin = JSON.parse(sessionStorage.getItem("userLogin") || "") 
     const ConvertDate= (date) => {
         const GetDate =  new Date(date)
         return GetDate.toLocaleDateString("es-MX")
     }
+    const navigation  = useLocation()
   return (
     <table className="table table-bordered table-hover table-responsive table-striped">
     <caption className="caption-top text-center">{title}</caption>
@@ -49,6 +51,8 @@ const Table = ({arrayHeader, data,title,  handleDelete, deleteRoute,updateRoute,
                ? "Proceso de auditoría"
                :header === "isorule"
                ? "Norma a evaluar"
+               :header === "audit_rule"
+               ? "Norma a evaluar"
                :header === "certification_name"
                ? "Nombre de la certificación"
                :header === "certification_date"
@@ -76,8 +80,6 @@ const Table = ({arrayHeader, data,title,  handleDelete, deleteRoute,updateRoute,
                ? 'Correo'
                : header === "namerule"
                ? 'Norma ISO'
-               :header === "coderule"
-               ? 'Código de Norma ISO'
                :header === "rulE_DESCRIPTION"
                ? 'Descripción de Norma ISO'
                :header === "idcertification"
@@ -93,15 +95,13 @@ const Table = ({arrayHeader, data,title,  handleDelete, deleteRoute,updateRoute,
                :header === "namerisk"
                ? 'Título de riesgo'
                :header === "consequense"
-               ? 'Ccnsecuencia'
+               ? 'Consecuencia'
                :header === "source_risk"
                ? 'Fuente del riesgo'
                :header === "charge_person"
                ? 'Persona a cargo'
                :header === "role_involves"
                ? 'Rol implicado'
-               :header === "codeprocess"
-               ? 'Código del proceso'
                :header === "processname"
                ? 'Nombre del proceso'
                :header === "name_no_accordance"
@@ -116,6 +116,12 @@ const Table = ({arrayHeader, data,title,  handleDelete, deleteRoute,updateRoute,
                ? 'Posición'
                :header === "area"
                ? 'Área'
+               :header === "state"
+               ? 'Estado'
+               :header === "personchange"
+               ? 'Usuario que actualizo'
+               :header === "quantity"
+               ? 'Cantidad de archivos'
                :
                header[0].toUpperCase() + header.substring(1)}
           </th>
@@ -133,18 +139,20 @@ const Table = ({arrayHeader, data,title,  handleDelete, deleteRoute,updateRoute,
                    header === "idrole"?
                    (<Fragment><td key={index}>{data?.idrole }</td>
                      <td>{data?.role}</td>
+                     <td>{data?.personchange === null ? "Ninguna persona lo ha actualizado": data?.personchange}</td>
                      <td>{ConvertDate(data?.createdate)}</td>
                      <td>{data?.updatedate === null ? "No se ha actualizado": ConvertDate(data?.updatedate)}</td>
                    </Fragment>):
                    header === "idcertification"?
                    (<Fragment><td key={index}>{data.idcertification }</td>
                      <td>{data.certificatioN_NAME}</td>
-                     <td>{data.certificatioN_DATE}</td>
+                     <td>{ConvertDate(data.certificacioN_DATE)}</td>
+                     <td>{data?.personchange === null ? "Ninguna persona lo ha actualizado": data?.personchange}</td>
                      <td>{ConvertDate(data.createdate)}</td>
                      <td>{data?.updatedate === null ? "No se ha actualizado": ConvertDate(data?.updatedate)}</td>
                    </Fragment>):
                    header === "idaudits"?
-                   (<Fragment><td key={index}>{data.idaudits }</td>
+                   (<Fragment><td key={index}>{data.idaudit }</td>
                    <td>{data.audiT_NAME}</td>
                    <td>{ConvertDate(data.audiT_DATE)}</td>
                    <td>{data.audiT_TIME}</td>
@@ -153,7 +161,8 @@ const Table = ({arrayHeader, data,title,  handleDelete, deleteRoute,updateRoute,
                    <td>{data.kinD_AUDIT}</td>
                    <td>{data.scopE_AUDIT}</td>
                    <td>{data.audiT_PROCESS}</td>
-                   <td>{data.audiT_RULE}</td>
+                   <td>{data.audiT_RULE === null ? "No hay regla a evaluar": data.audiT_RULE}</td>
+                   <td>{data?.personchange === null ? "Ninguna persona lo ha actualizado": data?.personchange}</td>
                    <td>{ConvertDate(data.createdate)}</td>
                    <td>{data?.updatedate === null ? "No se ha actualizado": ConvertDate(data?.updatedate)}</td>
                  </Fragment>):
@@ -165,6 +174,7 @@ const Table = ({arrayHeader, data,title,  handleDelete, deleteRoute,updateRoute,
                      <td>{data?.position?.positionjob}</td>
                      <td>{data?.active === true ? "Activo": "Inactivo"}</td>
                      <td>{data?.role?.role}</td>
+                     <td>{data?.changeperson === null ? "Ninguna persona lo ha actualizado": data?.changeperson}</td>
                      <td>{ConvertDate(data?.createdate)}</td>
                      <td>{data?.updatedate === null ? "No se ha actualizado": ConvertDate(data?.updatedate)}</td>
                    </Fragment>):
@@ -173,15 +183,16 @@ const Table = ({arrayHeader, data,title,  handleDelete, deleteRoute,updateRoute,
                      <td >{data?.certification?.certificatioN_NAME}</td>
                      <td >{data?.audits?.audiT_NAME}</td>
                      <td >{data?.namerule}</td>
-                     <td >{data?.coderule}</td>
                      <td  colSpan={4}>{data?.rulE_DESCRIPTION}</td>
+                     <td>{data?.personchange === null ? "Ninguna persona lo ha actualizado": data?.personchange}</td>
                      <td >{ConvertDate(data?.createdate)}</td>
                      <td >{data?.updatedate === null ? "No se ha actualizado": ConvertDate(data?.updatedate)}</td>
                    </Fragment>):
                    header === "idflags"?
-                   (<Fragment><td  key={index}>{data?.idflags}</td>
+                   (<Fragment><td  key={index}>{data?.idflag}</td>
                      <td >{data?.isorule?.namerule}</td>
                      <td >{data?.flagname}</td>
+                     <td>{data?.personchange === null ? "Ninguna persona lo ha actualizado": data?.personchange}</td>
                      <td >{ConvertDate(data?.createdate)}</td>
                      <td >{data?.updatedate === null ? "No se ha actualizado": ConvertDate(data?.updatedate)}</td>
                    </Fragment>):
@@ -192,15 +203,16 @@ const Table = ({arrayHeader, data,title,  handleDelete, deleteRoute,updateRoute,
                      <td >{data?.namerisks}</td>
                      <td >{data?.consequense}</td>
                      <td >{data?.sourcE_RISK}</td>
-                     <td >{data?.state}</td>
+                     <td >{data?.state === 1 ? "Mitigado":"No mitigado"}</td>
+                     <td >{data?.quantity}</td>
                      <td >{ConvertDate(data?.createdate)}</td>
                      <td >{data?.updatedate === null ? "No se ha actualizado": ConvertDate(data?.updatedate)}</td>
                    </Fragment>):
                    header === "idtask"?
                    (<Fragment><td  key={index}>{data?.idtask}</td>
                      <td >{data?.users?.fullname}</td>
-                     <td >{data?.idrule}</td>
-                     <td >{data?.idflags}</td>
+                     <td >{data?.isorule?.namerule}</td>
+                     <td >{data?.flags?.flagname}</td>
                      <td >{data?.project}</td>
                      <td >{data?.evenT_TASK}</td>
                      <td >{ConvertDate(data?.createdate)}</td>
@@ -209,9 +221,10 @@ const Table = ({arrayHeader, data,title,  handleDelete, deleteRoute,updateRoute,
                    header === "idprocess"?
                    (<Fragment><td  key={index}>{data?.idprocess}</td>
                      <td >{data?.isorule?.namerule}</td>
-                     <td >{data?.codeprocess}</td>
+                     <td >{data?.processname}</td>
                      <td >{data?.chargE_PERSON}</td>
                      <td >{data?.rolE_INVOLVES}</td>
+                     <td>{data?.personchange === null ? "Ninguna persona lo ha actualizado": data?.personchange}</td>
                      <td >{ConvertDate(data?.createdate)}</td>
                      <td >{data?.updatedate === null ? "No se ha actualizado": ConvertDate(data?.updatedate)}</td>
                    </Fragment>):
@@ -226,6 +239,7 @@ const Table = ({arrayHeader, data,title,  handleDelete, deleteRoute,updateRoute,
                      <td >{data?.description}</td>
                      <td >{data?.state ===1 ? "Abierto" : "Cerrado"}</td>
                      <td >{data?.audiT_DETECT}</td>
+                     <td >{data?.quantity}</td>
                      <td >{ConvertDate(data?.createdate)}</td>
                      <td >{data?.updatedate === null ? "No se ha actualizado": ConvertDate(data?.updatedate)}</td>
                    </Fragment>):
@@ -245,6 +259,7 @@ const Table = ({arrayHeader, data,title,  handleDelete, deleteRoute,updateRoute,
                      <td >{data?.positionjob}</td>
                      <td >{data?.description}</td>
                      <td >{data?.area}</td>
+                     <td>{data?.personchange === null ? "Ninguna persona lo ha actualizado": data?.personchange}</td>
                      <td >{ConvertDate(data?.createdate)}</td>
                      <td >{data?.updatedate === null ? "No se ha actualizado": ConvertDate(data?.updatedate)}</td>
                    </Fragment>):
@@ -254,17 +269,32 @@ const Table = ({arrayHeader, data,title,  handleDelete, deleteRoute,updateRoute,
           )})}
           <td className='' >
           <div className='d-flex justify-content-center align-items-center'>
-          {userLogin.role === "Admin"?(<><Tooltips text={"Agregar"} position={"top"}><ButtonLink to={addRoute} className={"btn btn-success me-2 my-2"}>
+          {(userLogin.role === "Admin" && navigation.pathname === "/risks" )|| (userLogin.role === "Admin" && navigation.pathname === "/noAccordance")?(<Fragment><Tooltips text={"Agregar"} position={"top"}><ButtonLink to={addRoute} className={"btn btn-success me-2 my-2"}>
                 <Icon icon={["fas", "plus"]} />
-              </ButtonLink></Tooltips><Tooltips text={"Actualizar"} position={"top"}><ButtonLink to={`${updateRoute}${data?.idrisks || data?.idaccordance || data?.idcompanY_POSITION || data?.idprocess || data?.iduser || data?.idrole || data?.idflags || data?.idrule || data?.idaudits || data?.idcertification || data?.idposition} `} className={"btn btn-warning me-2"}>
-                <Icon icon={["fas", "pen"]} />
-              </ButtonLink></Tooltips><Tooltips text={"Eliminar"} position={"top"}><ButtonLink to={`${deleteRoute}${data?.idrisks || data?.idaccordance || data?.idcompanY_POSITION || data?.idprocess || data?.iduser || data?.idrole || data?.idflags || data?.idrule || data?.idaudits || data?.idcertification || data?.idposition}`} onClick={handleDelete} className={"btn btn-danger"}>
+              </ButtonLink></Tooltips>
+              <Tooltips text={"Subir Archivos"} position={"top"}><ButtonLink to={`${uploadFiles}${data?.idrisks || data?.idaccordance || data?.idcompanY_POSITION || data?.idprocess || data?.iduser || data?.idrole || data?.idflag || data?.idrule || data?.idaudit || data?.idcertification || data?.idposition} `} className={"btn btn-primary me-2 my-2"}>
+                <Icon icon={["fas", "file"]} />
+              </ButtonLink></Tooltips>
+              <Tooltips text={"Mostrar Archivos"} position={"top"}><ButtonLink to={`${showFiles}${data?.idrisks || data?.idaccordance || data?.idcompanY_POSITION || data?.idprocess || data?.iduser || data?.idrole || data?.idflag || data?.idrule || data?.idaudit || data?.idcertification || data?.idposition} `} className={"btn btn-info me-2 my-2"}>
+                <Icon icon={["fas", "eye"]} className={"text-white"} />
+              </ButtonLink></Tooltips>
+              <Tooltips text={"Actualizar"} position={"top"}><ButtonLink to={`${updateRoute}${data?.idrisks || data?.idaccordance || data?.idcompanY_POSITION || data?.idprocess || data?.iduser || data?.idrole || data?.idflag || data?.idrule || data?.idaudit || data?.idcertification || data?.idposition} `} className={"btn btn-warning me-2"}>
+                <Icon icon={["fas", "pen"]} className={"text-white"} />
+              </ButtonLink></Tooltips><Tooltips text={"Eliminar"} position={"top"}><ButtonLink to={`${deleteRoute}${data?.idrisks || data?.idaccordance || data?.idcompanY_POSITION || data?.idprocess || data?.iduser || data?.idrole || data?.idflag || data?.idrule || data?.idaudit || data?.idcertification || data?.idposition}`} onClick={handleDelete} className={"btn btn-danger"}>
                 <Icon icon={["fas", "trash"]} />
-              </ButtonLink></Tooltips></>):null}
+              </ButtonLink></Tooltips></Fragment>):(<Fragment><Tooltips text={"Agregar"} position={"top"}><ButtonLink to={addRoute} className={"btn btn-success me-2 my-2"}>
+                <Icon icon={["fas", "plus"]} />
+              </ButtonLink></Tooltips>
+              <Tooltips text={"Actualizar"} position={"top"}><ButtonLink to={`${updateRoute}${data?.idrisks || data?.idaccordance || data?.idcompanY_POSITION || data?.idprocess || data?.iduser || data?.idrole || data?.idflag || data?.idrule || data?.idaudit || data?.idcertification || data?.idposition} `} className={"btn btn-warning me-2"}>
+                <Icon icon={["fas", "pen"]} className={"text-white"} />
+              </ButtonLink></Tooltips>
+              <Tooltips text={"Eliminar"} position={"top"}><ButtonLink to={`${deleteRoute}${data?.idrisks || data?.idaccordance || data?.idcompanY_POSITION || data?.idprocess || data?.iduser || data?.idrole || data?.idflag || data?.idrule || data?.idaudit || data?.idcertification || data?.idposition}`} onClick={handleDelete} className={"btn btn-danger"}>
+                <Icon icon={["fas", "trash"]} />
+              </ButtonLink></Tooltips></Fragment>)}
           {userLogin.role === "User"?((<><Tooltips text={"Agregar"} position={"top"}><ButtonLink to={addRoute} className={"btn btn-success me-2 my-2"}>
                   <Icon icon={["fas", "plus"]} />
                 </ButtonLink></Tooltips><Tooltips text={"Actualizar"} position={"top"}><ButtonLink to={`${updateRoute}${data?.idrisks || data?.idaccordance || data?.idprocess || data?.idtasks } `} className={"btn btn-warning me-2"}>
-                  <Icon icon={["fas", "pen"]} />
+                  <Icon icon={["fas", "pen"]} className={"text-white"}/>
                 </ButtonLink></Tooltips><Tooltips text={"Eliminar"} position={"top"}><ButtonLink to={`${deleteRoute}${data?.idrisks || data?.idaccordance || data?.idprocess || data?.idtasks}`} onClick={handleDelete} className={"btn btn-danger"}>
                   <Icon icon={["fas", "trash"]} />
                 </ButtonLink></Tooltips></>)):null}

@@ -14,6 +14,7 @@ import { ButtonLink } from '../../common/Button'
 import { GetAllProcess } from '../../../redux/processSlice'
 import { GetAllTaskProcess } from '../../../redux/taskSlice'
 import { GetAllAudits } from '../../../redux/auditSlice'
+import { AddHistorial } from '../../../redux/historialSlice'
 
 const FormNoAccordanceUpdate = () => {
     const {register, handleSubmit, formState:{errors} } =  useForm({resolver:yupResolver(ValidationNoAccordance)})
@@ -25,6 +26,7 @@ const FormNoAccordanceUpdate = () => {
     const [showModalAccordance, setShowModalAccordance] = useState(false)
     const [GetAccordance, setGetAccordance] = useState()
     const {id} =  useParams()
+    const userLogin = JSON.parse(sessionStorage.getItem("userLogin") || "") 
     const arrayRanking = [{id:"Baja",value:"Baja"},{id:"Media",value:"Media"}, {id:"Alta",value:"Alta"}]
     const arrayStateAccordarce = [{id:"1",value:"Abierto"},{id:"0",value:"Cerrado"}]
     const arrayTipoAccordarce = [{id:"1",value:"Mayor"},{id:"0",value:"Menor"}]
@@ -32,6 +34,8 @@ const FormNoAccordanceUpdate = () => {
     const handleAddNoAccordance = (data) =>{
       data.idaccordance = id
       dispatch(UpdateNoAccordance(data))
+      const dataHistory = {idmodule:id,personchange:userLogin.name}
+    dispatch(AddHistorial(dataHistory))
       setShowModalAccordance(true)
         console.log(data)
     }

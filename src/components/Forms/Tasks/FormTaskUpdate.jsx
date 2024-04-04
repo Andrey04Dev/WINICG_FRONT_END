@@ -14,6 +14,7 @@ import { GetAllTaskProcess, GetTaskByIdProcess, UpdateTaskProcess } from '../../
 import { Modal } from '../../common/Modal'
 import Spinner from '../../common/Spinner'
 import { ButtonLink } from '../../common/Button'
+import { AddHistorial } from '../../../redux/historialSlice'
 
 const FormTaskUpdate = () => {
     const {register, handleSubmit, formState:{errors} } =  useForm({resolver:yupResolver(ValidationTasks)})
@@ -25,9 +26,12 @@ const FormTaskUpdate = () => {
      const [showModalTask, setShowModalTask] = useState(false)
      const [GetIsoTask, setGetIsoTask] = useState()
      const {id} =  useParams()
+     const userLogin = JSON.parse(sessionStorage.getItem("userLogin") || "") 
 
     const handleAddTask = (data) =>{
       data.idtask =  id
+      const dataHistory = {idmodule:id,personchange:userLogin.name}
+    dispatch(AddHistorial(dataHistory))
       dispatch(UpdateTaskProcess(data))
       setShowModalTask(true)
         console.log(data)

@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect } from 'react'
-import Table from '../../common/Table'
 import { Outlet, useLocation } from 'react-router-dom';
 import { ButtonLink } from '../../common/Button';
 import { GetAllProcess } from '../../../redux/processSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import TableExample from '../../common/TableExample';
+import { ColumnProcess } from '../../data/ColumnProcess';
 
 const GetProcess = () => {
-  const arrayHeaderPosiiion = ["idprocess","namerule","codeprocess","charge_person", "role_involves","createdate", "updatedate"];
   const location =  useLocation()
   const dispatch = useDispatch();
   const { Process } = useSelector((state) => state.process);
@@ -20,29 +20,22 @@ const GetProcess = () => {
     return () => {};
   }, [initialState]);
   return (
-    <div>
+    <>
         {location.pathname && location.pathname === "/process" ? (
         <>
         {Process=== "" ? null : (
             <ButtonLink
               name={"Agregar proceso"}
-              className="btn btn-success float-end"
+              className="btn btn-success float-end my-3"
               to={"/process/addProcess"}
             />
           )}
-          <Table
-            title={"Lista de procesos"}
-            data={Process}
-            arrayHeader={arrayHeaderPosiiion}
-            addRoute={"addProcess"}
-            updateRoute={"updateProcess/"}
-            deleteRoute={"deleteProcess/"}
-          />
+          <TableExample data={Process} column={ColumnProcess}/>
         </>
       ) : (
         <Outlet/>
       )}
-    </div>
+    </>
   )
 }
 

@@ -12,8 +12,8 @@ const Select = ({register, options, name, label,error,defaultValue,...rest}) => 
         {/* <option value={""}>Select a options</option> */}
         {options &&
           Object.values(options).map((value, index) => (
-            <option key={index} defaultValue={defaultValue} value={  value.idflags || value?.idprocess ||value?.idposition || value?.idrule ||value?.iduser ||value?.idcertification || value?.idaudits  || value?.idrole || value?.id}>
-              {value.certificatioN_NAME ||value.processname || value?.positionjob|| value.fullname || value.flagname|| value.audiT_NAME || value.namerule || value.role || value.value}
+            <option key={index} defaultValue={defaultValue} value={  value.idflag || value?.idprocess || value?.iduser  ||value?.idposition || value?.idrule ||value?.idcertification || value?.idaudit  || value?.idrole || value?.id}>
+              {value.flagname|| value.processname ||   value.fullname || value?.positionjob || value.certificatioN_NAME  ||  value.audiT_NAME || value.namerule || value.role || value.value}
             </option>
           ))}
       </select>

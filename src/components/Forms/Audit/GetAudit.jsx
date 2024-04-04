@@ -16,7 +16,8 @@ const GetAudit = () => {
     "kind_audit",
     "goal_audit",
     "audit_process",
-    "isorule",
+    "audit_rule",
+    "personchange",
     "fecha de creación", 
     "fecha de actualización", 
   ];

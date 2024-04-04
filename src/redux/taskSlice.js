@@ -13,6 +13,18 @@ export const GetAllTaskProcess = createAsyncThunk(
     }
 )
 
+export const GetCountTask = createAsyncThunk(
+    "Task/getCountTask", 
+    async(_, thunkAPI)=>{
+        try {
+            const res =  await TasksService.GetCountTasks()
+            return res
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+)
+
 export const GetTaskByIdProcess = createAsyncThunk(
     "Task/getTaskById", 
     async(id, thunkAPI)=>{
@@ -79,6 +91,21 @@ const TaskSlice = createSlice({
             state.message = "Su petición ha sido concedida."
         })
         .addCase(GetAllTaskProcess.rejected, (state) => {
+            state.loading = false
+            state.Task = null;
+            state.message = "La lista esta vacia"
+        })
+        .addCase(GetCountTask.pending, (state) => {
+            state.loading = true
+            state.Task = null;
+        })
+        .addCase(GetCountTask.fulfilled,(state, {payload}) => {
+            state.loading = false
+            state.Task = payload;
+            state.success = true
+            state.message = "Su petición ha sido concedida."
+        })
+        .addCase(GetCountTask.rejected, (state) => {
             state.loading = false
             state.Task = null;
             state.message = "La lista esta vacia"

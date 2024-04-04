@@ -12,6 +12,7 @@ import { GetAllFlags, GetFlagsById, UpdateFlags } from '../../../redux/flagSlice
 import Spinner from '../../common/Spinner'
 import { Modal } from '../../common/Modal'
 import { ButtonLink } from '../../common/Button'
+import { AddHistorial } from '../../../redux/historialSlice'
 
 const FormFlagUpdate = () => {
     const {register, handleSubmit, formState:{errors} } =  useForm({resolver:yupResolver(ValidationFlag)})
@@ -21,9 +22,13 @@ const FormFlagUpdate = () => {
     const [showModalFlag, setShowModalFlag] = useState(false)
     const [GetIsoFlag, setGetIsoFlag] = useState()
     const {id} =  useParams()
+    const userLogin = JSON.parse(sessionStorage.getItem("userLogin") || "") 
+    
     const handleUpdateFlag = (data) =>{
       data.idflags = id
       dispatch(UpdateFlags(data))
+      const dataHistory = {idmodule:id,personchange:userLogin.name}
+    dispatch(AddHistorial(dataHistory))
       setShowModalFlag(true)
         console.log(data)
     }
@@ -54,7 +59,7 @@ const FormFlagUpdate = () => {
     title={"Actualizar indicadores"}
     onSubmit={handleUpdateFlag}
     >
-      <Input  defaultValue={id || ""} type={"text"} name={"idflags"}label={"ID del indicador"} placeholder={"ID del indicador"}/>
+      <Input  defaultValue={id || ""} type={"text"} name={"idflags"}label={"ID del indicador"} placeholder={"ID del indicador"} disabled={true}/>
         <Select error={errors.idrule?.message}  options={isoRules} name={"idrule"}  label={"Seleccione la Norma ISO"}></Select>
         <Input error={errors.flagName?.message} defaultValue={GetIsoFlag?.flagname || ""} type={"text"} name={"flagName"}label={"Nombre del indicador"} placeholder={"Nombre del indicador"}/>
     </Form>

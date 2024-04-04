@@ -13,6 +13,7 @@ import { GetAllAudits, GetAuditById, UpdateAudit } from '../../../redux/auditSli
 import { useParams } from 'react-router-dom'
 import { GetAllIsoRules } from '../../../redux/isoRuleSlice'
 import SelectPersonal from '../../FormFields/SelectPersonal'
+import { AddHistorial } from '../../../redux/historialSlice'
 
 const FormAuditUpdate = () => {
     const {register, handleSubmit, formState:{errors} } =  useForm({resolver:yupResolver(ValidationAudit)})
@@ -23,10 +24,13 @@ const FormAuditUpdate = () => {
     const {id} =  useParams()
     const [GetAudit, setGetAudit] = useState()
     const arrayAuditoria = [{id:"Interna",value:"Interna"},{id:"Externa", value:"Externa"}]
+    const userLogin = JSON.parse(sessionStorage.getItem("userLogin") || "") 
 
     const handleUpdateAudit = (data) =>{
         data.idaudits = id
         dispatch(UpdateAudit(data))
+        const dataHistory = {idmodule:id,personchange:userLogin.name}
+    dispatch(AddHistorial(dataHistory))
         setShowModalAuditoria(true)
         console.log(data)
     }

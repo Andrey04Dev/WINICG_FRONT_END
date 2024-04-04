@@ -31,7 +31,7 @@ const FormTaskAdd = () => {
     const initialstate =  useCallback(()=>{
       dispatch(GetAllIsoRules())
       dispatch(GetAllUser())
-      dispatch(GetAllFlags())
+      dispatch(GetAllFlags()).then(res=> console.log("El indicador en formtask",res))
     }, [dispatch])
     //Obteniendo las normas ISO
     const reloadIsoTask = () =>{
@@ -57,7 +57,7 @@ const FormTaskAdd = () => {
     >
         <Select error={errors.idRule?.message} options={isoRules} name={"idRule"}  label={"Selecione la norma ISO"}></Select>
         <Select error={errors.idUser?.message} options={user} name={"idUser"}  label={"Selecione el usuario asignado"}></Select>
-        <Select error={errors.idFlags?.message} options={flags} name={"idFlags"}  label={"Selecione el indicador"}></Select>
+        <Select error={errors.idFlag?.message} options={flags} name={"idFlag"}  label={"Selecione el indicador"}></Select>
         <Input error={errors.project?.message} type={"text"} name={"project"}label={"Escriba el nombre del proyecto"} placeholder={"Escriba el nombre del proyecto"}/>
         <Input error={errors.event_task?.message} type={"text"} name={"event_task"}label={"Escriba el evento de la tarea"} placeholder={"Escriba el evento de la tarea"}/>
     </Form>

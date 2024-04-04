@@ -6,7 +6,7 @@ import { GetAllFlags } from '../../../redux/flagSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 const GetFlag = () => {
-  const arrayHeaderPosiiion = ["idflags","namerule","flagname", "createdate", "updatedate"];
+  const arrayHeaderPosiiion = ["idflags","namerule","flagname","personchange", "createdate", "updatedate"];
   const location =  useLocation()
   const dispatch = useDispatch();
   const { flags } = useSelector((state) => state.flag);

@@ -13,6 +13,18 @@ export const GetAllRoles = createAsyncThunk(
     }
 )
 
+export const GetCountRoles = createAsyncThunk(
+    "Roles/getCountRoles", 
+    async(_, thunkAPI)=>{
+        try {
+            const res =  await RolesService.GetCountRoles()
+            return res
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+)
+
 export const GetRolesById = createAsyncThunk(
     "Roles/getRolesById", 
     async(id, thunkAPI)=>{
@@ -80,6 +92,21 @@ const RolesSlice = createSlice({
             state.message = "Se han obtenido todas los roles."
         })
         .addCase(GetAllRoles.rejected, (state) => {
+            state.loading = false
+            state.Roles = null;
+            state.message = "La lista esta vacia"
+        })
+        .addCase(GetCountRoles.pending, (state) => {
+            state.loading = true
+            state.Roles = null;
+        })
+        .addCase(GetCountRoles.fulfilled,(state, {payload}) => {
+            state.loading = false
+            state.Roles = payload;
+            state.success = true
+            state.message = "Se han obtenido todas los roles."
+        })
+        .addCase(GetCountRoles.rejected, (state) => {
             state.loading = false
             state.Roles = null;
             state.message = "La lista esta vacia"

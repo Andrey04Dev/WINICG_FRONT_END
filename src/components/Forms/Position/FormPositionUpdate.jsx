@@ -12,6 +12,7 @@ import Spinner from '../../common/Spinner'
 import { GetAllPositions, GetPositionById, UpdatePosition } from '../../../redux/positionSlice'
 import Form from '../../FormFields/Form'
 import SelectPersonal from '../../FormFields/SelectPersonal'
+import { AddHistorial } from '../../../redux/historialSlice'
 
 const FormPositionUpdate = () => {
     const {register, handleSubmit, formState:{errors} } =  useForm({resolver:yupResolver(ValidationPosition)})
@@ -21,10 +22,12 @@ const FormPositionUpdate = () => {
     const {id} = useParams()
     const [getInfoPosition, setGetInfoPosition] = useState()
     const arrayArea = ["Desarrollador", "QA","Administrador", "RH", "Secretaría"]
-
+    const userLogin = JSON.parse(sessionStorage.getItem("userLogin") || "") 
     const handleUpdatePosition = (data) =>{
         data.idposition = id
         dispatch(UpdatePosition(data))
+        const dataHistory = {idmodule:id,personchange:userLogin.name}
+    dispatch(AddHistorial(dataHistory))
         setShowModalPosition(true)
           console.log(data)
       }

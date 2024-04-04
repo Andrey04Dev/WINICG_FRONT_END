@@ -12,6 +12,7 @@ import { GetAllRisk, GetRiskById, UpdateRisk } from '../../../redux/risksSlice'
 import { Modal } from '../../common/Modal'
 import Spinner from '../../common/Spinner'
 import { ButtonLink } from '../../common/Button'
+import { AddHistorial } from '../../../redux/historialSlice'
 
 const FormRisksUpdate = () => {
     const {register, handleSubmit, formState:{errors} } =  useForm({resolver:yupResolver(ValidationRisk)})
@@ -21,11 +22,14 @@ const FormRisksUpdate = () => {
     const dispatch =  useDispatch()
     const [showModalRisk, setShowModalRisk] = useState(false)
     const [getRisk, setgetRisk] = useState()
-    const arrayEstadoRiesgo = [{id:"1",value:"Mitigado"},{id:"0",value:"No mitigado"}]
+     const userLogin = JSON.parse(sessionStorage.getItem("userLogin") || "") 
+     const arrayEstadoRiesgo = [{id:"1",value:"Mitigado"},{id:"0",value:"No mitigado"}]
 
     const handleAddRisks = (data) =>{
       data.idrisks = id
       dispatch(UpdateRisk(data))
+      const dataHistory = {idmodule:id,personchange:userLogin.name}
+    dispatch(AddHistorial(dataHistory))
       setShowModalRisk(true)
         console.log(data)
     }

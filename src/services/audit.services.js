@@ -9,7 +9,15 @@ const GetAllAudit = async () => {
       return error;
     }
   };
-  
+  const GetCountAudit = async () => {
+    try {
+      const res = await http.get("/Audit/getCountAudit");
+      console.log("Lo que trae la data en el axios", res.data)
+      return res.data;
+    } catch (error) {
+      return error;
+    }
+  };
   const GetAuditById = async (id) => {
     try {
       const res = await http.get(`/Audit/${id}`);
@@ -53,6 +61,7 @@ const GetAllAudit = async () => {
     AddAudit,
     UpdateAudit,
     DeleteAudit,
+    GetCountAudit
   };
   
   export default AuditService

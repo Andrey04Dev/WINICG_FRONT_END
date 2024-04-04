@@ -8,6 +8,16 @@ const GetAllIsoRule = async () => {
       return error;
     }
   };
+
+  const GetCountIsoRule = async () => {
+    try {
+      const res = await http.get("/IsoRule/getCountIsoRule");
+      return res.data;
+    } catch (error) {
+      return error;
+    }
+  };
+  
   
   const GetIsoRuleById = async (id) => {
     try {
@@ -53,6 +63,7 @@ const GetAllIsoRule = async () => {
     AddIsoRule,
     UpdateIsoRule,
     DeleteIsoRule,
+    GetCountIsoRule
   };
   
   export default IsoRuleService

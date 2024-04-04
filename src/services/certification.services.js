@@ -8,7 +8,14 @@ const GetAllCertification = async () => {
     return error;
   }
 };
-
+const GetCountCertification = async () => {
+  try {
+    const res = await http.get("Certification/getCountCertification");
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
 const GetCertificationById = async (id) => {
   try {
     const res = await http.get(`Certification/${id}`);
@@ -52,6 +59,7 @@ const CertificationService = {
   AddCertification,
   UpdateCertification,
   DeleteCertification,
+  GetCountCertification
 };
 
 export default CertificationService

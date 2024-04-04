@@ -60,7 +60,6 @@ const FormIsoRuleAdd = () => {
         <Select error={errors.idCertification?.message} options={certification && certification} name={"idCertification"}  label={"Selecionela certificación"}></Select>
         <Select error={errors.idAudit?.message} options={audits === null ? [] : audits} name={"idAudit"}  label={"Selecione la auditoria"}></Select>
         <Input error={errors.nameRule?.message} type={"text"} name={"nameRule"}label={"Nombre de la norma ISO"} placeholder={"Nombre de la norma ISO"}/>
-        <Input error={errors.codeRule?.message} type={"text"} name={"codeRule"}label={"Código de la norma ISO"} placeholder={"Código de la norma ISO"}/>
         <Textarea error={errors.rule_description?.message} name={"rule_description"}label={"Descripción de la norma ISO"} placeholder={"Descripción de la norma ISO"}/>
     </Form>
     <Modal

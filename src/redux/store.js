@@ -10,6 +10,8 @@ import RolesSlice from './rolesSlice'
 import TaskSlice from './taskSlice'
 import UserSlice from './userSlice'
 import PositionSlice from './positionSlice'
+import HistorialSlice from './historialSlice'
+import FilesSlice from './filesSlice'
 
 const { configureStore } = require("@reduxjs/toolkit")
 
@@ -25,7 +27,9 @@ const reducer = {
    roles: RolesSlice,
    tasks: TaskSlice,
    position: PositionSlice,
-   users: UserSlice
+   users: UserSlice, 
+   historial: HistorialSlice, 
+   files: FilesSlice
 }
 
 const  store =   configureStore({

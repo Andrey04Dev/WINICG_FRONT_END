@@ -10,6 +10,15 @@ const GetAllTasks = async () => {
     }
   };
   
+  const GetCountTasks = async () => {
+    try {
+      const res = await http.get("/Tasks/getCountTask");
+      console.log(res.data)
+      return res.data;
+    } catch (error) {
+      return error;
+    }
+  };
   const GetTasksById = async (id) => {
     try {
       const res = await http.get(`/Tasks/${id}`, );
@@ -52,6 +61,7 @@ const GetAllTasks = async () => {
     AddTasks,
     UpdateTasks,
     DeleteTasks,
+    GetCountTasks
   };
   
   export default TasksService

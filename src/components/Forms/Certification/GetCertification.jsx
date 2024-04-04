@@ -6,7 +6,7 @@ import { GetAllCertification } from '../../../redux/certificationSlice';
 import { ButtonLink } from '../../common/Button';
 
 const GetCertification = () => {
-  const arrayHeaderRiesgo = ["idcertification", "certification_name", "certification_date", "createdate", "updatedate"];
+  const arrayHeaderRiesgo = ["idcertification", "certification_name", "certification_date", "personchange","createdate", "updatedate"];
   const location =  useLocation()
   const dispatch = useDispatch();
   const { certification } = useSelector((state) => state.certification);

@@ -10,6 +10,14 @@ const GetAllUser = async () => {
     }
   };
   
+  const GetCountUser = async () => {
+    try {
+      const res = await http.get("/User/getCountUser");
+      return res.data;
+    } catch (error) {
+      return error;
+    }
+  };
   const GetUserById = async (id) => {
     try {
       const res = await http.get(`/User/${id}`);
@@ -74,7 +82,8 @@ const LogoutUser = async()=>{
     UpdateUser,
     DeleteUser,
     LoginUser,
-    LogoutUser
+    LogoutUser,
+    GetCountUser
   };
   
   export default UserService

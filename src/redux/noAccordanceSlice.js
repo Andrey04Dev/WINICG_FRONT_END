@@ -13,6 +13,18 @@ export const GetAllNoAccordance = createAsyncThunk(
     }
 )
 
+export const GetCountNoAccordance = createAsyncThunk(
+    "NoAccordance/getCountNoAccordance", 
+    async(_, thunkAPI)=>{
+        try {
+            const res =  await NoAccordanceService.GetCountNoAccordance()
+            return res
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+)
+
 export const GetNoAccordanceById = createAsyncThunk(
     "NoAccordance/getNoAccordanceById", 
     async(id, thunkAPI)=>{
@@ -79,6 +91,21 @@ const NoAccordanceSlice = createSlice({
             state.message = "Su petición ha sido concedida."
         })
         .addCase(GetAllNoAccordance.rejected, (state) => {
+            state.loading = false
+            state.NoAccordance = null;
+            state.message = "La lista esta vacia"
+        })
+        .addCase(GetCountNoAccordance.pending, (state) => {
+            state.loading = true
+            state.NoAccordance = null;
+        })
+        .addCase(GetCountNoAccordance.fulfilled,(state, {payload}) => {
+            state.loading = false
+            state.NoAccordance = payload;
+            state.success = true
+            state.message = "Su petición ha sido concedida."
+        })
+        .addCase(GetCountNoAccordance.rejected, (state) => {
             state.loading = false
             state.NoAccordance = null;
             state.message = "La lista esta vacia"

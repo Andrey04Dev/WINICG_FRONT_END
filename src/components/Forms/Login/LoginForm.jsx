@@ -1,14 +1,14 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import Form from "../../FormFields/Form";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ValidationLogin } from "../../Validation/ValidationForms";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Input from "../../FormFields/Input";
 import Logo from "../../../assets/img/logo_crAtesa.png";
 import { LoginUser } from "../../../redux/userSlice";
 import useAuth from "../../../common/useAuth";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const {
@@ -18,12 +18,27 @@ const LoginForm = () => {
   } = useForm({ resolver: yupResolver(ValidationLogin) });
   const dispatch = useDispatch();
   const userLogged = useAuth();
-  //const { loading, message, success } = useSelector((state) => state.users);
-
+  const navigate = useNavigate()
+  const {isLoggedIn} = useSelector((state) => state.users);
+//let isLoggedIn = false
   const handleLogin = (data) => {
+    //  const {email, password} =  data
+    //  if (email === "andrey.marin12net@gmail.com" && password === "1234") {
+    //    isLoggedIn = true
+    //    sessionStorage.setItem("userLogin", JSON.stringify(data))
+    //  }
     dispatch(LoginUser(data));
     console.log(data);
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/dashboard")
+    }else{
+      navigate("/")
+    }
+  }, [isLoggedIn, navigate, userLogged])
+  
   return (
     <Fragment>
       {userLogged ? (

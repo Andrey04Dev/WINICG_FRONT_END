@@ -9,6 +9,16 @@ const GetAllRisk = async () => {
       return error;
     }
   };
+
+  const GetCountRisk = async () => {
+    try {
+      const res = await http.get("/Risk/getCountRisks");
+      console.log(res.data)
+      return res.data;
+    } catch (error) {
+      return error;
+    }
+  };
   
   const GetRiskById = async (id) => {
     try {
@@ -22,6 +32,7 @@ const GetAllRisk = async () => {
   const AddRisk = async (data) => {
     try {
       const res = await http.post("/Risk/addRisk", data);
+      console.log("Lo que retorna el addRisk:",res.data)
       return res.data;
     } catch (error) {
       return error;
@@ -52,6 +63,7 @@ const GetAllRisk = async () => {
     AddRisk,
     UpdateRisk,
     DeleteRisk,
+    GetCountRisk
   };
   
   export default RiskService

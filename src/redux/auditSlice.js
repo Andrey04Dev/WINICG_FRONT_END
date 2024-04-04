@@ -12,7 +12,17 @@ export const GetAllAudits = createAsyncThunk(
         }
     }
 )
-
+export const GetCountAudits = createAsyncThunk(
+    "Audits/getCountAudits", 
+    async(_, thunkAPI)=>{
+        try {
+            const res =  await AuditService.GetCountAudit()
+            return res
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+)
 export const GetAuditById = createAsyncThunk(
     "Audits/getAuditById", 
     async(id, thunkAPI)=>{
@@ -80,6 +90,21 @@ const AuditSlice = createSlice({
             state.message = "Su petición ha sido concedida."
         })
         .addCase(GetAllAudits.rejected, (state) => {
+            state.loading = false
+            state.audits = [];
+            state.message = "La lista esta vacia"
+        })
+        .addCase(GetCountAudits.pending, (state) => {
+            state.loading = true
+            state.audits = null;
+        })
+        .addCase(GetCountAudits.fulfilled,(state, {payload}) => {
+            state.loading = false
+            state.audits = payload;
+            state.success = true
+            state.message = "Su petición ha sido concedida."
+        })
+        .addCase(GetCountAudits.rejected, (state) => {
             state.loading = false
             state.audits = [];
             state.message = "La lista esta vacia"

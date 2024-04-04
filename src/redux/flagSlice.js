@@ -13,6 +13,18 @@ export const GetAllFlags = createAsyncThunk(
     }
 )
 
+export const GetCountFlags = createAsyncThunk(
+    "flags/getCountflags", 
+    async(_, thunkAPI)=>{
+        try {
+            const res =  await FlagService.GetCountFlag()
+            return res
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+)
+
 export const GetFlagsById = createAsyncThunk(
     "flags/getFlagsById", 
     async(id, thunkAPI)=>{
@@ -80,6 +92,21 @@ const FlagsSlice = createSlice({
             state.message = "Su petición ha sido concedida."
         })
         .addCase(GetAllFlags.rejected, (state) => {
+            state.loading = false
+            state.flags = null;
+            state.message = "La lista esta vacia"
+        })
+        .addCase(GetCountFlags.pending, (state) => {
+            state.loading = true
+            state.flags = null;
+        })
+        .addCase(GetCountFlags.fulfilled,(state, {payload}) => {
+            state.loading = false
+            state.flags = payload;
+            state.success = true
+            state.message = "Su petición ha sido concedida."
+        })
+        .addCase(GetCountFlags.rejected, (state) => {
             state.loading = false
             state.flags = null;
             state.message = "La lista esta vacia"
